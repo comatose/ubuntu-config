@@ -1,0 +1,148 @@
+" I use this with the nightlies. Options sometimes change, so this may be important.
+
+loadplugins '\.(js|penta)$'
+
+set strictfocus=google.com:laissez-faire,'chrome:*':laissez-faire,*:moderate
+"set strictfocus=*:moderate
+set hlfind
+set guioptions+=n
+set showtabline=always
+"set tabclose=opener,previous,left,right
+"set tabopen=link:right,orphan:end,external:end
+set editor=emacs23
+
+set passunknown=caret,output_multiline,!normal,base
+"pass some imprtant keys, doesn't work otherwise for somereason
+nnoremap <Tab> <Pass>
+"nnoremap <C-c> <Pass>
+"nnoremap <C-v> <Pass>
+nnoremap <C-w> <Pass>
+nnoremap <M-c> <Pass>
+nnoremap <M-v> <Pass>
+nnoremap <M-w> <Pass>
+
+set defsearch='google'
+
+set nextpattern='\bnext',^>$,'^(>>|Â»)$','^(>|Â»)','(>|Â»)$','\bmore\b','Older','다음페이지'
+set previouspattern='\bprev|previous\b',^<$,'^(<<|Â«)$','^(<|Â«)','(<|Â«)$','Newer','이전페이지'
+
+set hintkeys='lasdfghjk'
+hi Hint font-family: Verdana; font-size: 10px; font-weight: bold; color: black; background-color: rgba(255,255,0,0.5); border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 10px 0px 0px 0px;
+
+
+"map <silent> <Space> <C-^>
+
+" faster scrolling
+" noremap h 3h
+" noremap j 3j
+" noremap k 3k
+" noremap l 3l
+noremap <A-h> 5h
+noremap <A-j> 5j
+noremap <A-k> 5k
+noremap <A-l> 5l
+
+" center cursor http://code.google.com/p/vimperator-labs/issues/detail?id=221
+noremap zz :centerselect<CR>
+noremap -count xx :zoom <count> <CR>
+
+
+group -description 'Google normal/visial mode' -locations=mail.google.com,www.google.com/reader,plus.google.com google
+nnoremap -group=google C <pass-next-key><Esc>
+nnoremap -group=google gi <Pass>
+nnoremap -group=google gs <Pass>
+nnoremap -group=google gt <Pass>
+nnoremap -group=google gd <Pass>
+nnoremap -group=google gc <Pass>
+nnoremap -group=google gb <Pass>
+nnoremap -group=google gk <Pass>
+nnoremap -group=google gl <Pass>
+nnoremap -group=google T <Pass>
+nnoremap -group=google x <Pass>
+nnoremap -group=google s <Pass>
+nnoremap -group=google e <Pass>
+nnoremap -group=google m <Pass>
+nnoremap -group=google ! <Pass>
+nnoremap -group=google # <Pass>
+nnoremap -group=google * <Pass>
+nnoremap -group=google r <Pass>
+nnoremap -group=google a <Pass>
+nnoremap -group=google v <Pass>
+nnoremap -group=google X <Pass>
+nnoremap -group=google O <Pass>
+nnoremap -group=google N <Pass>
+nnoremap -group=google P <Pass>
+nnoremap -group=google [ <Pass>
+nnoremap -group=google ] <Pass>
+nnoremap -group=google { <Pass>
+nnoremap -group=google } <Pass>
+nnoremap -group=google z <Pass>
+nnoremap -group=google . <Pass>
+nnoremap -group=google I <Pass>
+nnoremap -group=google U <Pass>
+nnoremap -group=google = <Pass>
+nnoremap -group=google \- <Pass>
+nnoremap -group=google ~ <Pass>
+nnoremap -group=google g <Pass>
+nnoremap -group=google i <Pass>
+nnoremap -group=google a <Pass>
+nnoremap -group=google c <Pass>
+" nnoremap -group=google / <Pass>
+nnoremap -group=google ? <Pass>
+nnoremap -group=google l <Pass>
+nnoremap -group=google u <Pass>
+nnoremap -group=google j <Pass>
+nnoremap -group=google k <Pass>
+nnoremap -group=google o <Pass>
+nnoremap -group=google n <Pass>
+nnoremap -group=google p <Pass>
+nnoremap -group=google q <Pass>
+nnoremap -group=google ` <Pass>
+nnoremap -group=google <Space> <Pass>
+nnoremap -group=google <S-Space> <Pass>
+
+" allow scrolling in ggl apps
+nnoremap -group=google J <Down>
+nnoremap -group=google K <Up>
+
+
+" set passkeys+='mail.google.com':xsem!#*rRaAvN[]{}z.IU=-gidac/?lujkonp
+" set passkeys+='www.google.com/reader':xsem!#*rRaAvN[]{}z.IU=-gidac/?lujkonp
+" set passkeys+='www.google.com/calendar':jk12345cezq
+" set passkeys+='www.google.com/search':jk
+
+
+" nnoremap gm :buffer gmail<CR>
+" nnoremap gr :buffer "Google Reader"<CR>
+" nnoremap gc :buffer "Google Calendar"<CR>
+" nnoremap gg :buffer "Google+"<CR>
+" nnoremap fb :buffer "Facebook"<CR>
+
+set mapleader=','
+
+" fast search using the FF searchengines keyboard shortcuts
+" map -group=user <Leader>l :to leo 
+" map -group=user <Leader>L :open leo 
+" map -group=user <Leader>s :to stock 
+" map -group=user <Leader>S :open stock 
+" map -group=user <Leader>c :to chart 
+" map -group=user <Leader>C :open chart 
+" map -group=user <Leader>w :to w 
+" map -group=user <Leader>W :open w 
+" map -group=user <Leader>a :to alpha 
+" map -group=user <Leader>A :open alpha 
+map -group=user <Leader>, <C-^>
+map -group=user <Leader>. g$
+map -group=user <Leader>h :open hoogle 
+map -group=user <Leader>H :to hoogle 
+
+" bookmarklets
+" map -group=user -ex <Leader>d :open delicious
+" map -group=user -ex <Leader>= :open plusone
+:
+" jump to important sites
+" map -group=user <Leader>= :b Google+<CR>
+" map -group=user <Leader>e :b schroff@g<CR>
+" map -group=user <Leader>k :b Calendar<CR>
+" map -group=user <Leader>v :b Voice<CR>
+map -group=user <Leader>r :b Google Reader<CR>
