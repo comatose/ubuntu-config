@@ -52,3 +52,11 @@
 (defadvice ido-find-file 
   (after switch-to-view-mode activate)
   (view-mode))
+
+(defadvice ido-find-file-other-window
+  (after switch-to-view-mode activate)
+  (view-mode))
+
+(defadvice ido-find-file-other-frame
+  (after switch-to-view-mode activate)
+  (view-mode))

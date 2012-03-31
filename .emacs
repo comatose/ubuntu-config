@@ -35,7 +35,6 @@
 (set-cursor-color "white")
 
 (define-key ctl-x-map "\C-q" 'view-mode)
-
 (defadvice find-file
   (after find-file-switch-to-view-file (file &optional wild) activate)
   (view-mode))
@@ -51,5 +50,13 @@
 (load-file "~/.emacs.d/init.el")
 
 (defadvice ido-find-file 
+  (after switch-to-view-mode activate)
+  (view-mode))
+
+(defadvice ido-find-file-other-window
+  (after switch-to-view-mode activate)
+  (view-mode))
+
+(defadvice ido-find-file-other-frame
   (after switch-to-view-mode activate)
   (view-mode))
