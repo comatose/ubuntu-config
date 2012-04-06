@@ -139,10 +139,11 @@ map -group=user <Leader>H :to hoogle
 " bookmarklets
 " map -group=user -ex <Leader>d :open delicious
 " map -group=user -ex <Leader>= :open plusone
-:
+
 " jump to important sites
 " map -group=user <Leader>= :b Google+<CR>
 " map -group=user <Leader>e :b schroff@g<CR>
 " map -group=user <Leader>k :b Calendar<CR>
 " map -group=user <Leader>v :b Voice<CR>
 map -group=user <Leader>r :b Google Reader<CR>
+
