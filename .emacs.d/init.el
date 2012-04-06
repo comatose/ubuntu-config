@@ -58,7 +58,10 @@
 ;;   auto-complete			; complete as you type with overlays
    zencoding-mode			; http://www.emacswiki.org/emacs/ZenCoding
 ;;   color-theme		                ; nice looking emacs
-;;   color-theme-tango	                ; check out color-theme-solarized
+;;   color-theme-tango	                ; check out color-theme-solarizede
+   color-theme-solarized
+   haskell-mode
+   xclip
    ))
 
 ;;

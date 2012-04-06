@@ -79,7 +79,7 @@
 (require 'yasnippet)
 (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
 (yas/global-mode 1)
-(yas/load-directory "~/.emacs.d/snippets")
+;; (yas/load-directory "~/.emacs.d/snippets")
 
 (setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
 
