@@ -1,58 +1,26 @@
-(add-to-list 'load-path "~/.emacs.d/plugins/emacs-color-theme-solarized")
 (add-to-list 'load-path "~/.emacs.d/plugins")
+
+;; ========== emacs-kicker  ==========
+(load-file "~/.emacs.d/init.el")
+
+;; ========== color-theme-solarized  ==========
 (require 'color-theme-solarized)
-(when  window-system
-  (color-theme-solarized-dark))
-(unless window-system
-  (load-file "~/.emacs.d/plugins/xclip.el"))
+(if window-system
+  (color-theme-solarized-dark) ;; don't load solarized-themes to make the background transparent, unless using window-system
+  (require 'xclip)) ;; using x clip board system when terminal-mode.
+;;  (load-file "~/.emacs.d/plugins/xclip.el")) ;; using x clip board system.
+
+;; ========== haskell-mode  ==========
+(require 'haskell-mode)
 
 (add-to-list 'completion-ignored-extensions ".hi")
-(load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
-
-(autoload 'ghc-init "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
-(add-hook 'haskell-mode-hook 'imenu-add-menubar-index)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-doc)
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(haskell-mode-hook (quote (turn-on-haskell-indentation turn-on-eldoc-mode capitalized-words-mode turn-on-haskell-doc-mode turn-on-haskell-decl-scan imenu-add-menubar-index))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
-
-(require 'auto-complete)
-(global-auto-complete-mode 1)
-
-(require 'xcscope)
-
-(require 'yasnippet)
-(setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
-(yas/global-mode 1)
-
-(setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
-
-(set-cursor-color "white")
-
-(custom-set-variables
-'(default-input-method "korean-hangul"))
-
-(setq kill-whole-line t)
-
-(load-file "~/.emacs.d/init.el")
-
+;; ========== view-mode  ==========
 (define-key ctl-x-map "\C-q" 'view-mode)
 
 (define-key view-mode-map (kbd "M-<SPC>") 'View-scroll-page-backward)
@@ -61,13 +29,7 @@
 (define-key view-mode-map (kbd "k") 'previous-line)
 (define-key view-mode-map (kbd "C-k") 'View-scroll-line-backward)
 
-(global-set-key (kbd "C-x C-b") 'electric-buffer-list)
-(global-set-key (kbd "M-<delete>") 'delete-window)
-(define-key ctl-x-map (kbd "<right>") 'split-window-horizontally)
-(define-key ctl-x-map (kbd "<down>") 'split-window-vertically)
-(define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
-
-;; ========== Switch to view-mode Aggressively ==========
+;; Switch to view-mode Aggressively
 (defadvice find-file
   (after switch-to-view-mode (file &optional wild) activate)
   (view-mode 1))
@@ -108,9 +70,31 @@
   (after switch-to-view-mode activate)
   (view-mode 1))
 
-;; ========== Window Management  ==========
+;; ========== etc.  ==========
+(require 'auto-complete)
+(global-auto-complete-mode 1)
 
+(require 'xcscope)
 
+(require 'yasnippet)
+(setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
+(yas/global-mode 1)
+(yas/load-directory "~/.emacs.d/snippets")
+
+(setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
+
+(custom-set-variables
+'(default-input-method "korean-hangul"))
+
+(setq kill-whole-line t)
+
+(global-set-key (kbd "C-x C-b") 'electric-buffer-list)
+(global-set-key (kbd "M-<delete>") 'delete-window)
+(define-key ctl-x-map (kbd "<right>") 'split-window-horizontally)
+(define-key ctl-x-map (kbd "<down>") 'split-window-vertically)
+(define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
+
+;; ========== http://dotfiles.org/~rretzbach/.emacs ==========
 ;; ========== Line by line scrolling ==========
 ;; This makes the buffer scroll by only a single line when the up or
 ;; down cursor keys push the cursor (tool-bar-mode) outside the
