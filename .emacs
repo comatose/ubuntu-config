@@ -2,7 +2,9 @@
 (add-to-list 'load-path "~/.emacs.d/plugins")
 (require 'color-theme-solarized)
 (when  window-system
-    (color-theme-solarized-dark))
+  (color-theme-solarized-dark))
+(unless window-system
+  (load-file "~/.emacs.d/plugins/xclip.el"))
 
 (add-to-list 'completion-ignored-extensions ".hi")
 (load "~/.emacs.d/plugins/haskell-mode/haskell-site-file")
@@ -31,16 +33,18 @@
   ;; If there is more than one, they won't work right.
  )
 
+(require 'auto-complete)
+(global-auto-complete-mode 1)
+
 (require 'xcscope)
 
-(set-cursor-color "white")
-
-(add-to-list 'load-path
-              "~/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
 (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
 (yas/global-mode 1)
-(yas/load-directory "~/.emacs.d/snippets")
+
+(setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
+
+(set-cursor-color "white")
 
 (custom-set-variables
 '(default-input-method "korean-hangul"))
@@ -51,7 +55,7 @@
 
 (define-key ctl-x-map "\C-q" 'view-mode)
 
-(define-key view-mode-map (kbd "C-@") 'View-scroll-page-backward)
+(define-key view-mode-map (kbd "M-<SPC>") 'View-scroll-page-backward)
 (define-key view-mode-map (kbd "RET") nil)
 (define-key view-mode-map (kbd "j") 'next-line)
 (define-key view-mode-map (kbd "k") 'previous-line)
@@ -74,6 +78,18 @@
 
 (defadvice find-file-other-frame
   (after switch-to-view-mode (file &optional wild) activate)
+  (view-mode 1))
+
+(defadvice ido-find-file-read-only
+  (after switch-to-view-mode activate)
+  (view-mode 1))
+
+(defadvice ido-find-file-read-only-other-window
+  (after switch-to-view-mode activate)
+  (view-mode 1))
+
+(defadvice ido-find-file-read-only-other-frame
+  (after switch-to-view-mode activate)
   (view-mode 1))
 
 (defadvice ido-find-file 
