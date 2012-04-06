@@ -12,16 +12,23 @@
 ;;  (load-file "~/.emacs.d/plugins/xclip.el")) ;; using x clip board system.
 
 ;; ========== haskell-mode  ==========
+(add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
+(load "haskell-site-file")
+;; (load "haskell-process")
+;; (load "haskell-session")
+;; (load "haskell-interactive-mode")
+
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'font-lock-mode)
+
 ;; (require 'haskell-mode)
 ;; (add-to-list 'completion-ignored-extensions ".hi")
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent) 
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
 ;; Add the dir for loading haskell-site-file.
-(add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
-(load-file "~/.emacs.d/haskell-mode-init.el")
+;; n(load-file "~/.emacs.d/plugins/haskell-mode/examples/init.el")
 
 ;; ========== view-mode  ==========
 (define-key ctl-x-map "\C-q" 'view-mode)
