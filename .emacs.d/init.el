@@ -60,7 +60,6 @@
 ;;   color-theme		                ; nice looking emacs
 ;;   color-theme-tango	                ; check out color-theme-solarizede
    color-theme-solarized
-   haskell-mode
    xclip
    ))
 

@@ -1,3 +1,4 @@
+;; sudo apt-get install emacs emacs-goodies-el emacs23-el auto-complete yasnippet
 (add-to-list 'load-path "~/.emacs.d/plugins")
 
 ;; ========== emacs-kicker  ==========
@@ -11,14 +12,16 @@
 ;;  (load-file "~/.emacs.d/plugins/xclip.el")) ;; using x clip board system.
 
 ;; ========== haskell-mode  ==========
-(require 'haskell-mode)
+;; (require 'haskell-mode)
+;; (add-to-list 'completion-ignored-extensions ".hi")
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent) 
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
-(add-to-list 'completion-ignored-extensions ".hi")
-
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; Add the dir for loading haskell-site-file.
+(add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
+(load-file "~/.emacs.d/haskell-mode-init.el")
 
 ;; ========== view-mode  ==========
 (define-key ctl-x-map "\C-q" 'view-mode)
@@ -31,15 +34,18 @@
 
 ;; Switch to view-mode Aggressively
 (defadvice find-file
-  (after switch-to-view-mode (file &optional wild) activate)
+  (after switch-to-view-mode activate)
+;;  (after switch-to-view-mode (file &optional wild) activate)
   (view-mode 1))
 
 (defadvice find-file-other-window
-  (after switch-to-view-mode (file &optional wild) activate)
+  (after switch-to-view-mode activate)
+;;  (after switch-to-view-mode (file &optional wild) activate)
   (view-mode 1))
 
 (defadvice find-file-other-frame
-  (after switch-to-view-mode (file &optional wild) activate)
+  (after switch-to-view-mode activate)
+;;  (after switch-to-view-mode (file &optional wild) activate)
   (view-mode 1))
 
 (defadvice ido-find-file-read-only
