@@ -9,17 +9,16 @@
 (if window-system
   (color-theme-solarized-dark) ;; don't load solarized-themes to make the background transparent, unless using window-system
   (require 'xclip)) ;; using x clip board system when terminal-mode.
-;;  (load-file "~/.emacs.d/plugins/xclip.el")) ;; using x clip board system.
 
 ;; ========== haskell-mode  ==========
 (add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
 (load "haskell-site-file")
-;; (load "haskell-process")
-;; (load "haskell-session")
-;; (load "haskell-interactive-mode")
+(load "haskell-process")
+(load "haskell-session")
+(load "haskell-interactive-mode")
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 
 ;; (require 'haskell-mode)
@@ -27,8 +26,10 @@
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent) 
 ;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
+(require 'notify)
 ;; Add the dir for loading haskell-site-file.
-;; n(load-file "~/.emacs.d/plugins/haskell-mode/examples/init.el")
+(load-file "~/.emacs.d/plugins/haskell-mode/examples/init.el")
+(setq haskell-process-type 'ghci)
 
 ;; ========== view-mode  ==========
 (define-key ctl-x-map "\C-q" 'view-mode)
