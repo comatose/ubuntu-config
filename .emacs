@@ -32,8 +32,20 @@
 (load-file "~/.emacs.d/el-get/haskell-mode/examples/init.el")
 (setq haskell-process-type 'ghci)
 
+(add-hook 'haskell-mode-hook 'haskell-hook-second t)
+
+(defun haskell-hook-second ()
+  (turn-off-haskell-simple-indent)
+  (define-key haskell-mode-map (kbd "<return>") nil)
+  (define-key haskell-mode-map (kbd "C-<return>") nil)
+
+  (turn-on-haskell-indentation)
+
+  (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
+  (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
+)
 ;; ========== view-mode  ==========
-(define-key ctl-x-map "\C-q" 'view-mode)
+(define-key ctl-x-map (kbd "C-q") 'view-mode)
 
 (define-key view-mode-map (kbd "M-<SPC>") 'View-scroll-page-backward)
 (define-key view-mode-map (kbd "RET") nil)
