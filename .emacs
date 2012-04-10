@@ -1,4 +1,4 @@
-;; sudo apt-get install emacs emacs-goodies-el emacs23-el auto-complete yasnippet
+;; sudo apt-get install emacs emacs-goodies-el emacs23-el
 (add-to-list 'load-path "~/.emacs.d/plugins")
 
 ;; ========== emacs-kicker  ==========
@@ -6,12 +6,13 @@
 
 ;; ========== color-theme-solarized  ==========
 (require 'color-theme-solarized)
-(if window-system
-  (color-theme-solarized-dark) ;; don't load solarized-themes to make the background transparent, unless using window-system
-  (require 'xclip)) ;; using x clip board system when terminal-mode.
+
+;; don't load solarized-themes to make the background transparent, unless using window-system
+(when window-system
+  (color-theme-solarized-dark))
 
 ;; ========== haskell-mode  ==========
-(add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
+;; (add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
 (load "haskell-site-file")
 (load "haskell-process")
 (load "haskell-session")
@@ -28,7 +29,7 @@
 
 (require 'notify)
 ;; Add the dir for loading haskell-site-file.
-(load-file "~/.emacs.d/plugins/haskell-mode/examples/init.el")
+(load-file "~/.emacs.d/el-get/haskell-mode/examples/init.el")
 (setq haskell-process-type 'ghci)
 
 ;; ========== view-mode  ==========
@@ -36,6 +37,10 @@
 
 (define-key view-mode-map (kbd "M-<SPC>") 'View-scroll-page-backward)
 (define-key view-mode-map (kbd "RET") nil)
+(define-key view-mode-map (kbd "o") nil)
+(define-key view-mode-map (kbd "g") nil)
+(define-key view-mode-map (kbd "<") nil)
+(define-key view-mode-map (kbd ">") nil)
 (define-key view-mode-map (kbd "j") 'next-line)
 (define-key view-mode-map (kbd "k") 'previous-line)
 (define-key view-mode-map (kbd "C-k") 'View-scroll-line-backward)
@@ -56,35 +61,42 @@
 ;;  (after switch-to-view-mode (file &optional wild) activate)
   (view-mode 1))
 
-(defadvice ido-find-file-read-only
+(defadvice ido-file-internal
   (after switch-to-view-mode activate)
   (view-mode 1))
 
-(defadvice ido-find-file-read-only-other-window
-  (after switch-to-view-mode activate)
-  (view-mode 1))
+;; (defadvice ido-find-file-read-only
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
 
-(defadvice ido-find-file-read-only-other-frame
-  (after switch-to-view-mode activate)
-  (view-mode 1))
+;; (defadvice ido-find-file-read-only-other-window
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
 
-(defadvice ido-find-file 
-  (after switch-to-view-mode activate)
-  (view-mode 1))
+;; (defadvice ido-find-file-read-only-other-frame
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
 
-(defadvice ido-find-file-other-window
-  (after switch-to-view-mode activate)
-  (view-mode 1))
+;; (defadvice ido-find-file 
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
 
-(defadvice ido-find-file-other-frame
-  (after switch-to-view-mode activate)
-  (view-mode 1))
+;; (defadvice ido-find-file-other-window
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
+
+;; (defadvice ido-find-file-other-frame
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
 
 (defadvice save-buffer
   (after switch-to-view-mode activate)
   (view-mode 1))
 
 ;; ========== etc.  ==========
+(unless window-system
+  (require 'xclip)) ;; using x clip board system when terminal-mode.
+
 (require 'auto-complete)
 (global-auto-complete-mode 1)
 
@@ -101,6 +113,8 @@
 '(default-input-method "korean-hangul"))
 
 (setq kill-whole-line t)
+
+(fset 'yes-or-no-p 'y-or-n-p)
 
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 (global-set-key (kbd "M-<delete>") 'delete-window)
@@ -142,5 +156,3 @@
 ;; ========== from http://dotfiles.org/~lwu/.emacs ==========
 ; Meta [ and ] enlarge and shrink the current window
 (global-set-key (kbd "M-]") 'enlarge-window)
-
-

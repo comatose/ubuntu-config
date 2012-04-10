@@ -91,11 +91,13 @@ myLayout =
   (noBorders (fullscreenFull Full))
 --  Full 
   (avoidStruts (
---    Tall 1 (3/100) (1/2) |||
-    ResizableTall 1 (3/100) (1/2) [] |||
-    Mirror (Tall 1 (3/100) (1/2)) |||
-    tabbed shrinkText tabConfig |||
-    spiral (5/7)))
+--    Tall 1 (3/100) (1/2)
+    Mirror (ResizableTall 3 (3/100) (1/2) [])
+    ||| ResizableTall 0 (3/100) (1/2) []
+--    ||| Mirror (Tall 1 (3/100) (1/2))
+--    ||| spiral (5/7)
+    ||| tabbed shrinkText tabConfig)
+    )
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -289,7 +291,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      io (exitWith ExitSuccess))
 
   -- Restart xmonad.
-  , ((modMask, xK_q),
+  , ((modMask .|. shiftMask, xK_q),
      restart "xmonad" True)
   ]
   ++
@@ -299,12 +301,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [((m .|. modMask, k), windows $ f i)
       | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+
+
   ++
 
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_r, xK_e, xK_w] [0..]
+      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
  
  
