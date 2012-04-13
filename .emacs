@@ -117,12 +117,22 @@
 (require 'yasnippet)
 (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
 (yas/global-mode 1)
-;; (yas/load-directory "~/.emacs.d/snippets")
+(yas/load-directory "~/.emacs.d/snippets")
 
 (setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
 
 (custom-set-variables
-'(default-input-method "korean-hangul"))
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(cua-mode t nil (cua-base))
+ '(default-input-method "korean-hangul")
+ '(haskell-notify-p t)
+ '(haskell-process-type (quote cabal-dev))
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 
 (setq kill-whole-line t)
 
@@ -168,3 +178,10 @@
 ;; ========== from http://dotfiles.org/~lwu/.emacs ==========
 ; Meta [ and ] enlarge and shrink the current window
 (global-set-key (kbd "M-]") 'enlarge-window)
+
+;; ==================================================================
+(set-fontset-font "fontset-default" '(#x1100 . #xffdc)  '("NANumGothicCoding" . "unicode-bmp")) ;;; 유니코드 한글영역...NanumGothicCoding에다가 원하는폰트를 적는다
+(set-fontset-font "fontset-default" '(#xe0bc . #xf66e)  '("NanumGothicCoding" . "unicode-bmp")) ;;;유니코드 사용자 영역
+(set-fontset-font "fontset-default" 'kana '("Meiryo" . "unicode-bmp"))
+(set-fontset-font "fontset-default" 'han '("Microsoft YaHei"
+. "unicode-bmp"))
