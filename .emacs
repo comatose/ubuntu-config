@@ -12,25 +12,20 @@
   (color-theme-solarized-dark))
 
 ;; ========== haskell-mode  ==========
-;; (add-to-list 'load-path "~/.emacs.d/plugins/haskell-mode")
-(load "haskell-site-file")
-(load "haskell-process")
-(load "haskell-session")
-(load "haskell-interactive-mode")
+;; (load "haskell-site-file")
+;; (load "haskell-process")
+;; (load "haskell-session")
+;; (load "haskell-interactive-mode")
 
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 (add-hook 'haskell-mode-hook 'font-lock-mode)
 
-;; (require 'haskell-mode)
 ;; (add-to-list 'completion-ignored-extensions ".hi")
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-indent) 
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
 
-(require 'notify)
 ;; Add the dir for loading haskell-site-file.
-(load-file "~/.emacs.d/el-get/haskell-mode/examples/init.el")
-(setq haskell-process-type 'ghci)
+;; (load-file "~/.emacs.d/el-get/haskell-mode/examples/init.el")
+;; (setq haskell-process-type 'ghci)
 
 (add-hook 'haskell-mode-hook 'haskell-hook-second t)
 
@@ -44,6 +39,7 @@
   (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
   (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
 )
+
 ;; ========== view-mode  ==========
 (define-key ctl-x-map (kbd "C-q") 'view-mode)
 
@@ -120,19 +116,6 @@
 (yas/load-directory "~/.emacs.d/snippets")
 
 (setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(cua-mode t nil (cua-base))
- '(default-input-method "korean-hangul")
- '(haskell-notify-p t)
- '(haskell-process-type (quote cabal-dev))
- '(show-paren-mode t)
- '(tool-bar-mode nil))
 
 (setq kill-whole-line t)
 
