@@ -13,28 +13,27 @@
 
 ;; ========== haskell-mode  ==========
 ;; (load "haskell-site-file")
-;; (load "haskell-process")
-;; (load "haskell-session")
-;; (load "haskell-interactive-mode")
-
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-(add-hook 'haskell-mode-hook 'font-lock-mode)
+(load "haskell-process")
+(load "haskell-session")
+(load "haskell-interactive-mode")
 
 ;; (add-to-list 'completion-ignored-extensions ".hi")
 
 ;; Add the dir for loading haskell-site-file.
-;; (load-file "~/.emacs.d/el-get/haskell-mode/examples/init.el")
-;; (setq haskell-process-type 'ghci)
+(load-file "~/.emacs.d/el-get/haskell-mode/examples/init.el")
 
 (add-hook 'haskell-mode-hook 'haskell-hook-second t)
 
 (defun haskell-hook-second ()
+  (setq haskell-process-type 'ghci)
+
   (turn-off-haskell-simple-indent)
   (define-key haskell-mode-map (kbd "<return>") nil)
   (define-key haskell-mode-map (kbd "C-<return>") nil)
 
   (turn-on-haskell-indentation)
+  (turn-on-haskell-doc-mode)
+  (font-lock-mode)
 
   (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
   (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
