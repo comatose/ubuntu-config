@@ -126,6 +126,13 @@
 (define-key ctl-x-map (kbd "<down>") 'split-window-vertically)
 (define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
 
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+(global-set-key "\C-w" 'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
 ;; ========== http://dotfiles.org/~rretzbach/.emacs ==========
 ;; ========== Line by line scrolling ==========
 ;; This makes the buffer scroll by only a single line when the up or
