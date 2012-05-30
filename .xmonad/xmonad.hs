@@ -62,7 +62,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Google-chrome"  --> doShift "2:web"
     , className =? "Firefox"        --> doShift "2:web"
-    , className =? "Emacs"        --> doShift "3:emacs"
+    -- , className =? "Emacs"        --> doShift "3:emacs"
     , resource  =? "gpicview"       --> doFloat
     , resource  =? "kdesktop"       --> doIgnore
     , className =? "MPlayer"        --> doFloat
@@ -141,7 +141,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   --
 
   -- Start a terminal.  Terminal to start is specified by myTerminal variable.
-  [ ((modMask .|. shiftMask, xK_Return),
+--  [ ((modMask .|. shiftMask, xK_Return),
+  [ ((modMask, xK_t),
      spawn $ XMonad.terminal conf)
 
   , ((modMask, xK_a), 
@@ -164,12 +165,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Launch dmenu via yeganesh.
   -- Use this to launch programs without a key binding.
-  , ((modMask, xK_p),
+  , ((modMask, xK_r),
 --     spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
 --     spawn "dmenu_run")
      runOrRaisePrompt promptConfig)
 
-  , ((modMask .|. shiftMask, xK_p),
+  , ((modMask .|. shiftMask, xK_r),
      changeDir promptConfig)
     
   -- Take a screenshot in select mode.
@@ -240,11 +241,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      windows W.focusDown)
 
   -- Move focus to the next window.
-  , ((modMask, xK_j),
+  , ((modMask, xK_n),
      windows W.focusDown)
 
   -- Move focus to the previous window.
-  , ((modMask, xK_k),
+  , ((modMask, xK_p),
      windows W.focusUp  )
 
   -- Move focus to the master window.
@@ -256,11 +257,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      windows W.swapMaster)
 
   -- Swap the focused window with the next window.
-  , ((modMask .|. shiftMask, xK_j),
+  , ((modMask .|. shiftMask, xK_n),
      windows W.swapDown  )
 
   -- Swap the focused window with the previous window.
-  , ((modMask .|. shiftMask, xK_k),
+  , ((modMask .|. shiftMask, xK_p),
      windows W.swapUp    )
 
   -- Shrink the master area.
@@ -272,8 +273,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      sendMessage Expand)
 
   -- Push window back into tiling.
-  , ((modMask, xK_t),
-     withFocused $ windows . W.sink)
+  -- , ((modMask, xK_t),
+  --    withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area.
   , ((modMask, xK_comma),
@@ -308,7 +309,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
   [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+      | (key, sc) <- zip [xK_k, xK_j] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
  
  
@@ -363,6 +364,7 @@ myStartupHook = return ()
 -- Run xmonad with all the defaults we set up.
 --
 main = do
+  xcape <- spawnPipe "xcape"
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
   xscreensaver <- spawnPipe "xscreensaver"
