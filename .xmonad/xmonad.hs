@@ -364,7 +364,6 @@ myStartupHook = return ()
 -- Run xmonad with all the defaults we set up.
 --
 main = do
-  xcape <- spawnPipe "xcape"
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
   xscreensaver <- spawnPipe "xscreensaver"
