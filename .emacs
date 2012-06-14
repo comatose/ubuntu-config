@@ -96,9 +96,9 @@
 ;;   (after switch-to-view-mode activate)
 ;;   (view-mode 1))
 
-(defadvice save-buffer
-  (after switch-to-view-mode activate)
-  (view-mode 1))
+;; (defadvice save-buffer
+;;   (after switch-to-view-mode activate)
+;;   (view-mode 1))
 
 ;; ========== etc.  ==========
 (unless window-system
@@ -117,6 +117,8 @@
 (setq find-function-C-source-directory "~/src/emacs23-23.3+1/src")
 
 (setq kill-whole-line t)
+
+(setq default-input-method "korean-hangul")
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
