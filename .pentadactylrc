@@ -13,13 +13,13 @@ set editor=emacs23
 
 set passunknown=caret,output_multiline,!normal,base
 "pass some imprtant keys, doesn't work otherwise for somereason
-nnoremap <Tab> <Pass>
-"nnoremap <C-c> <Pass>
-"nnoremap <C-v> <Pass>
-nnoremap <C-w> <Pass>
-nnoremap <M-c> <Pass>
-nnoremap <M-v> <Pass>
-nnoremap <M-w> <Pass>
+nmap -builtin <Tab> <Pass>
+"nmap -builtin <C-c> <Pass>
+"nmap -builtin <C-v> <Pass>
+nmap -builtin <C-w> <Pass>
+nmap -builtin <M-c> <Pass>
+nmap -builtin <M-v> <Pass>
+nmap -builtin <M-w> <Pass>
 
 set defsearch='google'
 
@@ -33,77 +33,77 @@ hi Hint font-family: Verdana; font-size: 10px; font-weight: bold; color: black; 
 "map <silent> <Space> <C-^>
 
 " faster scrolling
-" noremap h 3h
-" noremap j 3j
-" noremap k 3k
-" noremap l 3l
-noremap <A-h> 5h
-noremap <A-j> 5j
-noremap <A-k> 5k
-noremap <A-l> 5l
+" map -builtin h 3h
+" map -builtin j 3j
+" map -builtin k 3k
+" map -builtin l 3l
+map -builtin <A-h> 5h
+map -builtin <A-j> 5j
+map -builtin <A-k> 5k
+map -builtin <A-l> 5l
 
 " center cursor http://code.google.com/p/vimperator-labs/issues/detail?id=221
-noremap zz :centerselect<CR>
-noremap -count xx :zoom <count> <CR>
+map -builtin zz :centerselect<CR>
+map -builtin -count xx :zoom <count> <CR>
 
 
 group -description 'Google normal/visial mode' -locations=mail.google.com,www.google.com/reader,plus.google.com google
-nnoremap -group=google C <pass-next-key><Esc>
-nnoremap -group=google gi <Pass>
-nnoremap -group=google gs <Pass>
-nnoremap -group=google gt <Pass>
-nnoremap -group=google gd <Pass>
-nnoremap -group=google gc <Pass>
-nnoremap -group=google gb <Pass>
-nnoremap -group=google gk <Pass>
-nnoremap -group=google gl <Pass>
-nnoremap -group=google T <Pass>
-nnoremap -group=google x <Pass>
-nnoremap -group=google s <Pass>
-nnoremap -group=google e <Pass>
-nnoremap -group=google m <Pass>
-nnoremap -group=google ! <Pass>
-nnoremap -group=google # <Pass>
-nnoremap -group=google * <Pass>
-nnoremap -group=google r <Pass>
-nnoremap -group=google a <Pass>
-nnoremap -group=google v <Pass>
-nnoremap -group=google X <Pass>
-nnoremap -group=google O <Pass>
-nnoremap -group=google N <Pass>
-nnoremap -group=google P <Pass>
-nnoremap -group=google [ <Pass>
-nnoremap -group=google ] <Pass>
-nnoremap -group=google { <Pass>
-nnoremap -group=google } <Pass>
-nnoremap -group=google z <Pass>
-nnoremap -group=google . <Pass>
-nnoremap -group=google I <Pass>
-nnoremap -group=google U <Pass>
-nnoremap -group=google = <Pass>
-nnoremap -group=google \- <Pass>
-nnoremap -group=google ~ <Pass>
-nnoremap -group=google g <Pass>
-nnoremap -group=google i <Pass>
-nnoremap -group=google a <Pass>
-nnoremap -group=google c <Pass>
-" nnoremap -group=google / <Pass>
-nnoremap -group=google ? <Pass>
-nnoremap -group=google l <Pass>
-nnoremap -group=google u <Pass>
-nnoremap -group=google j <Pass>
-nnoremap -group=google k <Pass>
-nnoremap -group=google o <Pass>
-nnoremap -group=google n <Pass>
-nnoremap -group=google p <Pass>
-nnoremap -group=google q <Pass>
-nnoremap -group=google ` <Pass>
-nnoremap -group=google <Space> <Pass>
-nnoremap -group=google <S-Space> <Pass>
+nmap -builtin -group=google C <pass-next-key><Esc>
+nmap -builtin -group=google gi <Pass>
+nmap -builtin -group=google gs <Pass>
+nmap -builtin -group=google gt <Pass>
+nmap -builtin -group=google gd <Pass>
+nmap -builtin -group=google gc <Pass>
+nmap -builtin -group=google gb <Pass>
+nmap -builtin -group=google gk <Pass>
+nmap -builtin -group=google gl <Pass>
+nmap -builtin -group=google T <Pass>
+nmap -builtin -group=google x <Pass>
+nmap -builtin -group=google s <Pass>
+nmap -builtin -group=google e <Pass>
+nmap -builtin -group=google m <Pass>
+nmap -builtin -group=google ! <Pass>
+nmap -builtin -group=google # <Pass>
+nmap -builtin -group=google * <Pass>
+nmap -builtin -group=google r <Pass>
+nmap -builtin -group=google a <Pass>
+nmap -builtin -group=google v <Pass>
+nmap -builtin -group=google X <Pass>
+nmap -builtin -group=google O <Pass>
+nmap -builtin -group=google N <Pass>
+nmap -builtin -group=google P <Pass>
+nmap -builtin -group=google [ <Pass>
+nmap -builtin -group=google ] <Pass>
+nmap -builtin -group=google { <Pass>
+nmap -builtin -group=google } <Pass>
+nmap -builtin -group=google z <Pass>
+nmap -builtin -group=google . <Pass>
+nmap -builtin -group=google I <Pass>
+nmap -builtin -group=google U <Pass>
+nmap -builtin -group=google = <Pass>
+nmap -builtin -group=google \- <Pass>
+nmap -builtin -group=google ~ <Pass>
+nmap -builtin -group=google g <Pass>
+nmap -builtin -group=google i <Pass>
+nmap -builtin -group=google a <Pass>
+nmap -builtin -group=google c <Pass>
+" nmap -builtin -group=google / <Pass>
+nmap -builtin -group=google ? <Pass>
+nmap -builtin -group=google l <Pass>
+nmap -builtin -group=google u <Pass>
+nmap -builtin -group=google j <Pass>
+nmap -builtin -group=google k <Pass>
+nmap -builtin -group=google o <Pass>
+nmap -builtin -group=google n <Pass>
+nmap -builtin -group=google p <Pass>
+nmap -builtin -group=google q <Pass>
+nmap -builtin -group=google ` <Pass>
+nmap -builtin -group=google <Space> <Pass>
+nmap -builtin -group=google <S-Space> <Pass>
 
 " allow scrolling in ggl apps
-nnoremap -group=google J <Down>
-nnoremap -group=google K <Up>
+nmap -builtin -group=google J <Down>
+nmap -builtin -group=google K <Up>
 
 
 " set passkeys+='mail.google.com':xsem!#*rRaAvN[]{}z.IU=-gidac/?lujkonp
@@ -112,13 +112,14 @@ nnoremap -group=google K <Up>
 " set passkeys+='www.google.com/search':jk
 
 
-" nnoremap gm :buffer gmail<CR>
-" nnoremap gr :buffer "Google Reader"<CR>
-" nnoremap gc :buffer "Google Calendar"<CR>
-" nnoremap gg :buffer "Google+"<CR>
-" nnoremap fb :buffer "Facebook"<CR>
+" nmap -builtin gm :buffer gmail<CR>
+" nmap -builtin gr :buffer "Google Reader"<CR>
+" nmap -builtin gc :buffer "Google Calendar"<CR>
+" nmap -builtin gg :buffer "Google+"<CR>
+" nmap -builtin fb :buffer "Facebook"<CR>
 
-set mapleader=','
+" set mapleader=','
+map -group=user , <Leader>
 
 " fast search using the FF searchengines keyboard shortcuts
 " map -group=user <Leader>l :to leo 
