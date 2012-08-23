@@ -65,6 +65,7 @@
    notify
    haskell-mode
    yasnippet
+   bookmark+
    ))
 
 ;;
@@ -109,7 +110,7 @@
 (add-to-list 'default-frame-alist '(alpha . 100))
 
 ;; copy/paste with C-c and C-v and C-x, check out C-RET too
-(cua-mode)
+;; (cua-mode)
 
 ;; Use the clipboard, pretty please, so that copy/paste "works"
 ;; (setq mouse-drag-copy-region nil)  ; stops selection with a mouse being immediately injected to the kill ring

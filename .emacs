@@ -118,14 +118,16 @@
 
 (setq kill-whole-line t)
 
-(setq default-input-method "korean-hangul")
-
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; Hangul bey binding
+(global-set-key (kbd "<Hangul>") 'toggle-input-method)
+(setq default-input-method "korean-hangul")
 
 (global-set-key (kbd "C-x C-b") 'electric-buffer-list)
 (global-set-key (kbd "M-<delete>") 'delete-window)
-(define-key ctl-x-map (kbd "<right>") 'split-window-horizontally)
-(define-key ctl-x-map (kbd "<down>") 'split-window-vertically)
+(define-key ctl-x-map (kbd "l") 'split-window-horizontally)
+(define-key ctl-x-map (kbd "j") 'split-window-vertically)
 (define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
 
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -134,6 +136,9 @@
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
+
+(global-set-key (kbd "<S-up>") 'bmkp-previous-bookmark)
+(global-set-key (kbd "<S-down>") 'bmkp-next-bookmark)
 
 ;; ========== http://dotfiles.org/~rretzbach/.emacs ==========
 ;; ========== Line by line scrolling ==========
@@ -174,5 +179,18 @@
 (set-fontset-font "fontset-default" '(#x1100 . #xffdc)  '("NANumGothicCoding" . "unicode-bmp")) ;;; 유니코드 한글영역...NanumGothicCoding에다가 원하는폰트를 적는다
 (set-fontset-font "fontset-default" '(#xe0bc . #xf66e)  '("NanumGothicCoding" . "unicode-bmp")) ;;;유니코드 사용자 영역
 (set-fontset-font "fontset-default" 'kana '("Meiryo" . "unicode-bmp"))
-(set-fontset-font "fontset-default" 'han '("Microsoft YaHei"
-. "unicode-bmp"))
+(set-fontset-font "fontset-default" 'han '("Microsoft YaHei" . "unicode-bmp"))
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk")
+ '(haskell-notify-p t)
+ '(haskell-process-type (quote cabal-dev)))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
