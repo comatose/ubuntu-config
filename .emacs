@@ -25,6 +25,8 @@
 (add-hook 'haskell-mode-hook 'haskell-hook-second t)
 
 (defun haskell-hook-second ()
+  (setq haskell-notify-p t)
+  ;; (setq haskell-process-type 'cabal-dev)
   (setq haskell-process-type 'ghci)
 
   (turn-off-haskell-simple-indent)
@@ -140,6 +142,11 @@
 (global-set-key (kbd "<S-up>") 'bmkp-previous-bookmark)
 (global-set-key (kbd "<S-down>") 'bmkp-next-bookmark)
 
+(setq bmkp-auto-light-when-set 'any-bookmark)
+(setq bmkp-auto-light-when-jump 'any-bookmark)
+(setq bmkp-default-bookmark-file "~/.emacs.bmk")
+
+
 ;; ========== http://dotfiles.org/~rretzbach/.emacs ==========
 ;; ========== Line by line scrolling ==========
 ;; This makes the buffer scroll by only a single line when the up or
@@ -185,9 +192,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk")
- '(haskell-notify-p t)
- '(haskell-process-type (quote cabal-dev)))
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk"))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
