@@ -144,8 +144,8 @@
 
 (setq bmkp-auto-light-when-set 'any-bookmark)
 (setq bmkp-auto-light-when-jump 'any-bookmark)
-(setq bmkp-default-bookmark-file "~/.emacs.bmk")
-
+(setq bmkp-default-bookmark-file "~/.emacs.d/.bookmarks")
+(setq bmkp-last-as-first-bookmark-file nil)
 
 ;; ========== http://dotfiles.org/~rretzbach/.emacs ==========
 ;; ========== Line by line scrolling ==========
@@ -187,12 +187,15 @@
 (set-fontset-font "fontset-default" '(#xe0bc . #xf66e)  '("NanumGothicCoding" . "unicode-bmp")) ;;;유니코드 사용자 영역
 (set-fontset-font "fontset-default" 'kana '("Meiryo" . "unicode-bmp"))
 (set-fontset-font "fontset-default" 'han '("Microsoft YaHei" . "unicode-bmp"))
+
+;; ==================================================================
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/.emacs.bmk"))
+ '(compilation-auto-jump-to-first-error t)
+ '(compilation-skip-threshold 2))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
