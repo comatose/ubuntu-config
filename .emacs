@@ -44,15 +44,15 @@
 ;; ========== view-mode  ==========
 (define-key ctl-x-map (kbd "C-q") 'view-mode)
 
-(define-key view-mode-map (kbd "M-<SPC>") 'View-scroll-page-backward)
+;; (define-key view-mode-map (kbd "M-<SPC>") 'View-scroll-page-backward)
 (define-key view-mode-map (kbd "RET") nil)
 (define-key view-mode-map (kbd "o") nil)
 (define-key view-mode-map (kbd "g") nil)
 (define-key view-mode-map (kbd "<") nil)
 (define-key view-mode-map (kbd ">") nil)
-(define-key view-mode-map (kbd "j") 'next-line)
-(define-key view-mode-map (kbd "k") 'previous-line)
-(define-key view-mode-map (kbd "C-k") 'View-scroll-line-backward)
+(define-key view-mode-map (kbd "j") (lambda () (interactive) (next-line 10)))
+(define-key view-mode-map (kbd "k") (lambda () (interactive) (previous-line 10)))
+;; (define-key view-mode-map (kbd "C-k") 'View-scroll-line-backward)
 
 ;; Switch to view-mode Aggressively
 (defadvice find-file
@@ -156,6 +156,7 @@
 
 (setq scroll-step 1)
 (setq scroll-conservatively 5)
+(setq scroll-preserve-screen-position t)
 
 ;; ========== Place Backup Files in Specific Directory ==========
 ;; Enable backup files.
