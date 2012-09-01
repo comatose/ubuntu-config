@@ -4,7 +4,7 @@
       (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
 			       ("gnu" . "http://elpa.gnu.org/packages/")
 			       ("marmalade" . "http://marmalade-repo.org/packages/")))
-      (package-refresh-contents)
+      ;; (package-refresh-contents)
 
 ;; ================ notify ================
       (when (not (require 'notify nil t))
@@ -40,35 +40,37 @@
 	(package-install 'haskell-mode))
 
       ;; Add the dir for loading haskell-site-file.
-      (load-file "~/.emacs.d/init-haskell-mode.el")
-
-      ;; (load "haskell-site-file")
-      ;; (load "haskell-process")
-      ;; (load "haskell-session")
-      ;; (load "haskell-interactive-mode")
+      ;; (load-file "~/.emacs.d/init-haskell-mode.el")
 
       ;; Override and enhance the settings of the above.
-      (add-hook 
-       'haskell-mode-hook 
-       (lambda () 
-	 (load "haskell-process")
-	 (load "haskell-session")
-	 (load "haskell-interactive-mode")
+      ;; (add-hook 
+      ;;  'haskell-mode-hook 
+      ;;  (lambda () 
+	 ;; (load "haskell-site-file")
+	 ;; (load "haskell-process")
+	 ;; (load "haskell-session")
+	 ;; (load "haskell-interactive-mode")
 
-	 (setq haskell-process-type 'ghci)
+	 ;; (setq haskell-process-type 'ghci)
 
-	 (turn-off-haskell-simple-indent)
-	 (define-key haskell-mode-map (kbd "<return>") nil)
-	 (define-key haskell-mode-map (kbd "C-<return>") nil)
-	 (turn-on-haskell-indentation)
+	 ;; (turn-off-haskell-simple-indent)
+	 ;; (define-key haskell-mode-map (kbd "<return>") nil)
+	 ;; (define-key haskell-mode-map (kbd "C-<return>") nil)
+	 ;; (turn-on-haskell-indentation)
 
-	 (turn-on-haskell-doc-mode)
-	 (font-lock-mode)
+	 ;; (turn-on-haskell-doc-mode)
+	 ;; (font-lock-mode)
 
-	 (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
-	 (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
-	 )
-       t)
+	 ;; (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
+	 ;; (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
+       ;; 	 )
+       ;; t)
+
+;; ================ ghc ================
+      (when (not (require 'ghc nil t))
+	(package-install 'ghc))
+      (autoload 'ghc-init "ghc" nil t)
+      (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 
 ;; ================ auto-complete ================
       (when (not (require 'auto-complete nil t))
