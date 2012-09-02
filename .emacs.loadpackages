@@ -1,44 +1,48 @@
+
 (if (>= emacs-major-version 24)
     (progn
       ;; Add a larger package list
       (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
 			       ("gnu" . "http://elpa.gnu.org/packages/")
 			       ("marmalade" . "http://marmalade-repo.org/packages/")))
-      ;; (package-refresh-contents)
+      (package-refresh-contents)
 
-;; ================ notify ================
-      (when (not (require 'notify nil t))
-	(package-install 'notify))
+      (mapc
+       (lambda (x) (when (not (require x nil t)) (package-install x)))
+       '(notify
+	 flymake
+	 flymake-cursor
+	 rainbow-mode
+	 color-theme-sanityinc-solarized
+	 haskell-mode
+	 ghc
+	 auto-complete
+	 xcscope
+	 bookmark+
+	 smex
+	 paren
+	 magit
+	 term
+	 ido
+	 dired-x
+	 yasnippet
+	 ))
 
 ;; ================ flymake ================
-      (when (not (require 'flymake nil t))
-	(package-install 'flymake))
       (global-set-key (kbd "C-; C-f") 'flymake-mode)
 
-;; ================ flymake-cursor ================
-      (when (not (require 'flymake-cursor nil t))
-	(package-install 'flymake-cursor))
-      ;; Install rainbow mode if it doesn't exist, then configure
-
 ;; ================ rainbow-mode ================
-      (when (not (require 'rainbow-mode nil t))
-	(package-install 'rainbow-mode))
       (defun all-css-modes() (css-mode)
 	(rainbow-mode))
       (add-to-list 'auto-mode-alist '("\.css$" . all-css-modes))
 
 ;; ================ color-theme-sanityinc-solarized ================
-      (when (not (require 'color-theme-sanityinc-solarized nil t))
-	(package-install 'color-theme-sanityinc-solarized))
       ;; don't load solarized-themes to make the background transparent,
       ;; unless using window-system
       (when window-system
 	(color-theme-sanityinc-solarized-dark))
 
 ;; ================ haskell-mode ================
-      (when (not (require 'haskell-mode nil t))
-	(package-install 'haskell-mode))
-
       ;; Add the dir for loading haskell-site-file.
       ;; (load-file "~/.emacs.d/init-haskell-mode.el")
 
@@ -67,14 +71,10 @@
        ;; t)
 
 ;; ================ ghc ================
-      (when (not (require 'ghc nil t))
-	(package-install 'ghc))
       (autoload 'ghc-init "ghc" nil t)
       (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
 
 ;; ================ auto-complete ================
-      (when (not (require 'auto-complete nil t))
-	(package-install 'auto-complete))
       (global-auto-complete-mode 1)
 
 ;; ================ xclip ================
@@ -83,14 +83,7 @@
 	(when (not (require 'xclip nil t))
 	  (package-install 'xclip)))
 	
-;; ================ xcscope ================
-      (when (not (require 'xcscope nil t))
-	(package-install 'xcscope))
-
 ;; ================ bookmark+ ================
-      (when (not (require 'bookmark+ nil t))
-	(package-install 'bookmark+))
-
       (global-set-key (kbd "<S-up>") 'bmkp-previous-bookmark)
       (global-set-key (kbd "<S-down>") 'bmkp-next-bookmark)
 
@@ -100,25 +93,17 @@
       (setq bmkp-last-as-first-bookmark-file nil)
       
 ;; ================ smex ================
-      (when (not (require 'smex nil t))
-	(package-install 'smex))
       (setq smex-save-file "~/.emacs.d/.smex-items")
       (global-set-key (kbd "M-x") 'smex)
       (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;; ================ paren ================
-      (when (not (require 'paren nil t))
-	(package-install 'paren))
       (show-paren-mode t)
 
 ;; ================ magit ================
-      (when (not (require 'magit nil t))
-	(package-install 'magit))
       (define-key ctl-x-map (kbd "C-z") 'magit-status)
 
 ;; ================ term ================
-      (when (not (require 'term nil t))
-	(package-install 'term))
       ;; If you do use M-x term, you will notice there's line mode that acts like
       ;; emacs buffers, and there's the default char mode that will send your
       ;; input char-by-char, so that curses application see each of your key
@@ -134,8 +119,6 @@
       (define-key term-raw-map  (kbd "C-y") 'term-paste)
 
 ;; ================ ido ================
-      (when (not (require 'ido nil t))
-	(package-install 'ido))
       (ido-mode t)
       (setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
       (setq ido-enable-flex-matching t)
@@ -143,17 +126,9 @@
       (setq ido-show-dot-for-dired t)
       (define-key ctl-x-map (kbd "B") 'ibuffer)
 
-;; C-x C-j opens dired with the cursor right on the file you're editing
-;; ================ dired-x ================
-      (when (not (require 'dired-x nil t))
-	(package-install 'dired-x))
-
 ;; ================ yasnippet ================
-      ;; (when (not (require 'yasnippet nil t))
-      ;; 	(package-install 'yasnippet))
-      ;; (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
-      ;; (yas/global-mode 1)
-      ;; (yas/load-directory "~/.emacs.d/snippets")
-
+      (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
+      (yas/global-mode 1)
+      (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
       )
 )
