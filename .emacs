@@ -117,7 +117,7 @@
 (setq version-control t)
 
 ;; Save all backup file in this directory.
-(setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+(setq backup-directory-alist (quote ((".*" . "/tmp/emacs_backups/"))))
 
 ;; ========== from http://dotfiles.org/~rretzbach/.emacs ==========
 ;; set default mode
@@ -143,12 +143,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-skip-threshold 2)
-)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "NanumGothicCoding" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))

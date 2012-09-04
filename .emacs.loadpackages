@@ -1,11 +1,13 @@
+; -*- mode: Emacs-Lisp; -*-
 
+;; ================ ELPA  ================
 (if (>= emacs-major-version 24)
     (progn
       ;; Add a larger package list
       (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
 			       ("gnu" . "http://elpa.gnu.org/packages/")
 			       ("marmalade" . "http://marmalade-repo.org/packages/")))
-      (package-refresh-contents)
+      ;; (package-refresh-contents)
 
       (mapc
        (lambda (x) (when (not (require x nil t)) (package-install x)))
@@ -130,5 +132,43 @@
       (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
       (yas/global-mode 1)
       (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
+
+
+;; ================ el-get ================
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil t)
+  (url-retrieve
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s)
+     (let (el-get-master-branch)
+       (goto-char (point-max))
+       (eval-print-last-sexp)))))
+
+(setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
+
+;; set local recipes
+(setq
+ el-get-sources
+ '(
+   (:name goto-last-change		; move pointer back to last change
+	  :after (progn
+		   ;; when using AZERTY keyboard, consider C-x C-_
+		   (global-set-key (kbd "C-x C-/") 'goto-last-change)))
+   )
+ )
+
+;; now set our own packages
+(setq my:el-get-packages
+      '(
+	el-get
+	git-emacs
+	goto-last-change
+	))
+
+;; install new packages and init already installed packages
+(el-get 'sync my:el-get-packages)
+
+;; ================================
       )
-)
+  )
