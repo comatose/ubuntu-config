@@ -38,7 +38,7 @@ myTerminal = "gnome-terminal"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:remote"] ++ map show [6..9]
+myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:docs"] ++ map show [6..9]
  
 
 ------------------------------------------------------------------------
@@ -62,7 +62,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Google-chrome"  --> doShift "2:web"
     , className =? "Firefox"        --> doShift "2:web"
-    -- , className =? "Emacs"        --> doShift "3:emacs"
+    , className =? "Evince"         --> doShift "5:docs"
     , resource  =? "gpicview"       --> doFloat
     , resource  =? "kdesktop"       --> doIgnore
     , className =? "MPlayer"        --> doFloat
@@ -289,7 +289,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Quit xmonad.
   , ((modMask .|. shiftMask .|. controlMask, xK_q),
-     io (exitWith ExitSuccess))
+     io exitSuccess)
 
   -- Restart xmonad.
   , ((modMask .|. shiftMask, xK_q),
@@ -321,19 +321,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = False
  
-myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
+myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
   [
     -- mod-button1, Set the window to floating mode and move by dragging
     ((modMask, button1),
-     (\w -> focus w >> mouseMoveWindow w))
+     \w -> focus w >> mouseMoveWindow w)
  
     -- mod-button2, Raise the window to the top of the stack
     , ((modMask, button2),
-       (\w -> focus w >> windows W.swapMaster))
+       \w -> focus w >> windows W.swapMaster)
  
     -- mod-button3, Set the window to floating mode and resize by dragging
     , ((modMask, button3),
-       (\w -> focus w >> mouseResizeWindow w))
+       \w -> focus w >> mouseResizeWindow w)
  
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
   ]
@@ -372,7 +372,7 @@ main = do
   gs <- spawnPipe "gnome-settings-daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = (\s -> hPutStrLn xbar s >> hPutStrLn xbar2 s)
+            ppOutput = \s -> hPutStrLn xbar s >> hPutStrLn xbar2 s
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
           , ppSep = "   "}
@@ -404,7 +404,7 @@ defaults = defaultConfig {
     mouseBindings      = myMouseBindings,
  
     -- hooks, layouts
-    layoutHook         = smartBorders $ myLayout,
+    layoutHook         = smartBorders myLayout,
     manageHook         = myManageHook,
     startupHook        = myStartupHook
 }
