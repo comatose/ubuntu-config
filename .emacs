@@ -41,9 +41,7 @@
 ;;   (view-mode 1))
 
 ;; ========== etc.  ==========
-(define-key ctl-x-map (kbd "C-c") 'delete-frame)
-
-(define-key ctl-x-map (kbd "c") 'save-buffers-kill-emacs)
+(define-key ctl-x-map (kbd "c") 'delete-frame)
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
