@@ -28,6 +28,7 @@
 	 ido
 	 dired-x
 	 yasnippet
+	 idomenu
 	 ))
 
 ;; ================ flymake ================
@@ -127,6 +128,7 @@
       (setq ido-use-filename-at-point 'guess)
       (setq ido-show-dot-for-dired t)
       (define-key ctl-x-map (kbd "B") 'ibuffer)
+      (global-set-key (kbd "M-i") 'idomenu)
 
 ;; ================ yasnippet ================
       (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
@@ -164,6 +166,7 @@
 	el-get
 	git-emacs
 	goto-last-change
+	visible-mark
 	))
 
 ;; install new packages and init already installed packages
