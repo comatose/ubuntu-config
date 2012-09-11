@@ -40,7 +40,20 @@
 ;;   (after switch-to-view-mode activate)
 ;;   (view-mode 1))
 
+;; ================ CEDET ================
+(load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
+(semantic-load-enable-excessive-code-helpers)
+(global-ede-mode t)
+
 ;; ========== etc.  ==========
+
+(add-hook 'c-mode-common-hook
+	  (lambda()
+	    (define-key c++-mode-map (kbd "C-c o") 'ff-find-other-file)
+	    (define-key c-mode-map (kbd "C-c o") 'ff-find-other-file)))
+
+(setq enable-recursive-minibuffers t)
+
 (define-key ctl-x-map (kbd "c") 'delete-frame)
 
 (define-key global-map (kbd "RET") 'newline-and-indent)
@@ -274,6 +287,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  '(column-number-mode t)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-skip-threshold 2)
+ '(ede-project-directories (quote ("/home/comatose/src/SAVLSim/arraysim")))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

@@ -134,7 +134,8 @@
       (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
       (yas/global-mode 1)
       (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
-
+;; ================================
+))
 
 ;; ================ el-get ================
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -160,8 +161,10 @@
    (:name visible-mark
 	  :after (progn (require 'visible-mark)
 			(global-visible-mark-mode 1)))
-   )
- )
+   ;; (:name cedet
+   ;; 	  :after (progn (load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
+   ;; 			(semantic-load-enable-excessive-code-helpers)))
+   ))
 
 ;; now set our own packages
 (setq my:el-get-packages
@@ -170,11 +173,10 @@
 	git-emacs
 	goto-last-change
 	visible-mark
+	cedet
 	))
 
 ;; install new packages and init already installed packages
 (el-get 'sync my:el-get-packages)
 
 ;; ================================
-      )
-  )
