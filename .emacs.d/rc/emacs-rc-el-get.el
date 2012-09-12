@@ -31,7 +31,7 @@
 		   (require 'auto-complete-config)
 		   (global-auto-complete-mode 1)
 		   (setq ac-auto-start nil)
-		   (define-key ac-mode-map (kbd "C-<return>") 'auto-complete)))
+		   (define-key ac-mode-map (kbd "M-<return>") 'auto-complete)))
    ))
 
 ;; now set our own packages

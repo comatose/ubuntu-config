@@ -11,9 +11,6 @@
 ;; ================ CEDET ================
 (load "~/.emacs.d/rc/emacs-rc-cedet.el")
 
-;; ========== emacs-kicker  ==========
-;; (load-file "~/.emacs.d/init.el")
-
 ;; ========== view-mode  ==========
 (define-key ctl-x-map (kbd "C-q") 'view-mode)
 
@@ -44,50 +41,6 @@
 ;; (defadvice ido-file-internal
 ;;   (after switch-to-view-mode activate)
 ;;   (view-mode 1))
-
-;; (load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
-;; (add-to-list 'load-path "~/.emacs.d/el-get/cedet/contrib/")
-;; (add-to-list 'Info-directory-list "~/.emacs.d/el-get/cedet/doc/info")
-
-;; (semantic-load-enable-excessive-code-helpers)
-;; (semantic-mode 1)
-;; (global-ede-mode t)
-;; (global-semanticdb-minor-mode t)
-;; (require 'semantic/ia)
-;; (require 'semantic/bovine/gcc)
-;; (require 'semantic-ia)
-;; (require 'semantic-gcc)
-
-;; (add-hook 'semantic-init-hooks
-;; 	  '(lambda ()
-;; 	    (imenu-add-to-menubar "TAGS")
-;; 	    ))
-
-;; (add-hook 'c-mode-common-hook
-;; 	  '(lambda ()
-;; 	     (local-set-key (kbd "C-c o") 'ff-find-other-file)
-;; 	     (local-set-key (kbd "C-<return>") 'semantic-ia-complete-symbol)
-
-;; 	     (local-set-key (kbd "C-c ?") 'semantic-ia-complete-symbol-menu)
-;; 	     (local-set-key (kbd "C-c >") 'semantic-complete-analyze-inline)
-;; 	     (local-set-key (kbd "C-c p") 'semantic-analyze-proto-impl-toggle)
-;; 	     (local-set-key (kbd ".") 'semantic-complete-self-insert)
-;; 	     (local-set-key (kbd ">") 'semantic-complete-self-insert)
-;; 	  ))
-
-;; ;; if you want to enable support for gnu global
-;; (when (cedet-gnu-global-version-check t)
-;;   (require 'semanticdb-global)
-;;   (semanticdb-enable-gnu-global-databases 'c-mode)
-;;   (semanticdb-enable-gnu-global-databases 'c++-mode))
-
-;; enable ctags for some languages:
-;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
-;; (when (cedet-ectag-version-check)
-;;   (semantic-load-enable-primary-exuberent-ctags-support))
-
-;; ;; add additional header files
-;; ;; (semantic-add-system-include "~/local/include" 'c++-mode)
 
 ;; ========== etc.  ==========
 (setq enable-recursive-minibuffers t)

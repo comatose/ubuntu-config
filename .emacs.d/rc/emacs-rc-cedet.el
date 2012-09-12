@@ -4,23 +4,25 @@
 ;; CEDET component (including EIEIO) gets activated by another 
 ;; package (Gnus, auth-source, ...).
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
-
+(add-to-list 'load-path "~/.emacs.d/cedet-1.1/contrib/")
+(add-to-list 'Info-default-directory-list "~/.emacs.d/cedet-1.1/semantic/doc/")
+ 
 ;; Enable EDE (Project Management) features
 (global-ede-mode 1)
 
 ;; Enable EDE for a pre-existing C++ project
 ;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
 
-
 ;; Enabling Semantic (code-parsing, smart completion) features
 ;; Select one of the following:
 
 ;; * This enables the database and idle reparse engines
-(semantic-load-enable-minimum-features)
+;; (semantic-load-enable-minimum-features)
+(semantic-load-enable-excessive-code-helpers)
 
 ;; * This enables some tools useful for coding, such as summary mode,
 ;;   imenu support, and the semantic navigator
-(semantic-load-enable-code-helpers)
+;; (semantic-load-enable-code-helpers)
 
 ;; * This enables even more coding tools such as intellisense mode,
 ;;   decoration mode, and stickyfunc mode (plus regular code helpers)
@@ -36,13 +38,7 @@
 ;; (semantic-load-enable-secondary-exuberent-ctags-support)
 
 ;; Enable SRecode (Template management) minor-mode.
-;; (global-srecode-minor-mode 1)
-
-
-;; ;;; emacs-rc-cedet.el ---
-;; ;; (load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
-;; ;; (add-to-list 'load-path "~/.emacs.d/el-get/cedet/contrib/")
-;; ;; (add-to-list 'Info-directory-list "~/.emacs.d/el-get/cedet/doc/info")
+(global-srecode-minor-mode 1)
 
 ;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
@@ -106,8 +102,9 @@
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 
-(semanticdb-enable-gnu-global-databases 'c-mode t)
-(semanticdb-enable-gnu-global-databases 'c++-mode t)
+(when (cedet-gnu-global-version-check t)
+  (semanticdb-enable-gnu-global-databases 'c-mode t)
+  (semanticdb-enable-gnu-global-databases 'c++-mode t))
 
 (when (cedet-ectag-version-check t)
   (semantic-load-enable-primary-ectags-support))
