@@ -2,8 +2,14 @@
 (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/plugins/")
 
+;; el-get
+(load "~/.emacs.d/rc/emacs-rc-el-get.el")
+
 ;; install required packages
 (add-hook 'after-init-hook '(lambda () (load-file "~/.emacs.loadpackages")))
+
+;; ================ CEDET ================
+(load "~/.emacs.d/rc/emacs-rc-cedet.el")
 
 ;; ========== emacs-kicker  ==========
 ;; (load-file "~/.emacs.d/init.el")
@@ -11,47 +17,79 @@
 ;; ========== view-mode  ==========
 (define-key ctl-x-map (kbd "C-q") 'view-mode)
 
-(add-hook 'view-mode-hook (lambda ()
-  (define-key view-mode-map (kbd "RET") nil)
-  (define-key view-mode-map (kbd "o") nil)
-  (define-key view-mode-map (kbd "g") nil)
-  (define-key view-mode-map (kbd "<") nil)
-  (define-key view-mode-map (kbd ">") nil)
-  (define-key view-mode-map (kbd "j") (lambda () (interactive) (next-line 10)))
-  (define-key view-mode-map (kbd "k") (lambda () (interactive) (previous-line 10)))))
+(add-hook 'view-mode-hook
+	  '(lambda ()
+	     (define-key view-mode-map (kbd "RET") nil)
+	     (define-key view-mode-map (kbd "o") nil)
+	     (define-key view-mode-map (kbd "g") nil)
+	     (define-key view-mode-map (kbd "<") nil)
+	     (define-key view-mode-map (kbd ">") nil)
+	     (define-key view-mode-map (kbd "j") (lambda () (interactive) (next-line 10)))
+	     (define-key view-mode-map (kbd "k") (lambda () (interactive) (previous-line 10)))
+	     ))
 
 ;; ;; Switch to view-mode Aggressively
 ;; (defadvice find-file
 ;;   (after switch-to-view-mode activate)
 ;; ;;  (after switch-to-view-mode (file &optional wild) activate)
 ;;   (view-mode 1))
-
 ;; (defadvice find-file-other-window
 ;;   (after switch-to-view-mode activate)
 ;; ;;  (after switch-to-view-mode (file &optional wild) activate)
 ;;   (view-mode 1))
-
 ;; (defadvice find-file-other-frame
 ;;   (after switch-to-view-mode activate)
 ;; ;;  (after switch-to-view-mode (file &optional wild) activate)
 ;;   (view-mode 1))
-
 ;; (defadvice ido-file-internal
 ;;   (after switch-to-view-mode activate)
 ;;   (view-mode 1))
 
-;; ================ CEDET ================
-(load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
-(semantic-load-enable-excessive-code-helpers)
-(global-ede-mode t)
+;; (load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
+;; (add-to-list 'load-path "~/.emacs.d/el-get/cedet/contrib/")
+;; (add-to-list 'Info-directory-list "~/.emacs.d/el-get/cedet/doc/info")
+
+;; (semantic-load-enable-excessive-code-helpers)
+;; (semantic-mode 1)
+;; (global-ede-mode t)
+;; (global-semanticdb-minor-mode t)
+;; (require 'semantic/ia)
+;; (require 'semantic/bovine/gcc)
+;; (require 'semantic-ia)
+;; (require 'semantic-gcc)
+
+;; (add-hook 'semantic-init-hooks
+;; 	  '(lambda ()
+;; 	    (imenu-add-to-menubar "TAGS")
+;; 	    ))
+
+;; (add-hook 'c-mode-common-hook
+;; 	  '(lambda ()
+;; 	     (local-set-key (kbd "C-c o") 'ff-find-other-file)
+;; 	     (local-set-key (kbd "C-<return>") 'semantic-ia-complete-symbol)
+
+;; 	     (local-set-key (kbd "C-c ?") 'semantic-ia-complete-symbol-menu)
+;; 	     (local-set-key (kbd "C-c >") 'semantic-complete-analyze-inline)
+;; 	     (local-set-key (kbd "C-c p") 'semantic-analyze-proto-impl-toggle)
+;; 	     (local-set-key (kbd ".") 'semantic-complete-self-insert)
+;; 	     (local-set-key (kbd ">") 'semantic-complete-self-insert)
+;; 	  ))
+
+;; ;; if you want to enable support for gnu global
+;; (when (cedet-gnu-global-version-check t)
+;;   (require 'semanticdb-global)
+;;   (semanticdb-enable-gnu-global-databases 'c-mode)
+;;   (semanticdb-enable-gnu-global-databases 'c++-mode))
+
+;; enable ctags for some languages:
+;;  Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
+;; (when (cedet-ectag-version-check)
+;;   (semantic-load-enable-primary-exuberent-ctags-support))
+
+;; ;; add additional header files
+;; ;; (semantic-add-system-include "~/local/include" 'c++-mode)
 
 ;; ========== etc.  ==========
-
-(add-hook 'c-mode-common-hook
-	  (lambda()
-	    (define-key c++-mode-map (kbd "C-c o") 'ff-find-other-file)
-	    (define-key c-mode-map (kbd "C-c o") 'ff-find-other-file)))
-
 (setq enable-recursive-minibuffers t)
 
 (define-key ctl-x-map (kbd "c") 'delete-frame)
@@ -78,7 +116,8 @@
 (define-key ctl-x-map (kbd "l") 'split-window-horizontally)
 (define-key ctl-x-map (kbd "j") 'split-window-vertically)
 (define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
-(define-key ctl-x-map (kbd "C-m") 'execute-extended-command)
+(define-key ctl-x-map (kbd "m") 'smex)
+(define-key ctl-x-map (kbd "C-m") 'smex)
 (define-key ctl-x-map (kbd "C-k") 'kill-region)
 
 ;; on to the visual settings
@@ -271,35 +310,6 @@ This is the same as using \\[set-mark-command] with the prefix argument."
   (interactive)
   (set-mark-command 1))
 (global-set-key (kbd "M-`") 'jump-to-mark)
-
-;; Recentf
-;; get rid of `find-file-read-only' and replace it with something
-;; more useful.
-(global-set-key (kbd "C-x C-r") 'xsteve-ido-choose-from-recentf)
- 
-;; enable recent files mode.
-(recentf-mode t)
- 
-; 50 files ought to be enough.
-(setq recentf-max-saved-items 50)
- 
-(defun ido-recentf-open ()
-  "Use `ido-completing-read' to \\[find-file] a recent file"
-  (interactive)
-  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-      (message "Opening file...")
-    (message "Aborting")))
-
-(defun xsteve-ido-choose-from-recentf ()
-  "Use ido to select a recently opened file from the `recentf-list'"
-  (interactive)
-  (let ((home (expand-file-name (getenv "HOME"))))
-    (find-file
-     (ido-completing-read "Recentf open: "
-			  (mapcar (lambda (path)
-				    (replace-regexp-in-string home "~" path))
-				  recentf-list)
-			  nil t))))
 
 ;; ==================================================================
 (set-fontset-font "fontset-default" '(#x1100 . #xffdc)  '("NANumGothicCoding" . "unicode-bmp")) ;;; 유니코드 한글영역...NanumGothicCoding에다가 원하는폰트를 적는다

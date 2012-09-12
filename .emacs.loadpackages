@@ -18,7 +18,6 @@
 	 color-theme-sanityinc-solarized
 	 haskell-mode
 	 ghc
-	 auto-complete
 	 xcscope
 	 bookmark+
 	 smex
@@ -29,6 +28,8 @@
 	 dired-x
 	 yasnippet
 	 idomenu
+	 gtags
+	 fuzzy
 	 ))
 
 ;; ================ flymake ================
@@ -52,7 +53,7 @@
       ;; Override and enhance the settings of the above.
       ;; (add-hook 
       ;;  'haskell-mode-hook 
-      ;;  (lambda () 
+      ;;  '(lambda () 
 	 ;; (load "haskell-site-file")
 	 ;; (load "haskell-process")
 	 ;; (load "haskell-session")
@@ -75,10 +76,7 @@
 
 ;; ================ ghc ================
       (autoload 'ghc-init "ghc" nil t)
-      (add-hook 'haskell-mode-hook (lambda () (ghc-init) (flymake-mode)))
-
-;; ================ auto-complete ================
-      (global-auto-complete-mode 1)
+      (add-hook 'haskell-mode-hook '(lambda () (ghc-init) (flymake-mode)))
 
 ;; ================ xclip ================
       ;; using x clip board system when terminal-mode.
@@ -137,46 +135,3 @@
 ;; ================================
 ))
 
-;; ================ el-get ================
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (let (el-get-master-branch)
-       (goto-char (point-max))
-       (eval-print-last-sexp)))))
-
-(setq el-get-user-package-directory "~/.emacs.d/el-get-init-files/")
-
-;; set local recipes
-(setq
- el-get-sources
- '(
-   (:name goto-last-change		; move pointer back to last change
-	  :after (progn
-		   ;; when using AZERTY keyboard, consider C-x C-_
-		   (global-set-key (kbd "C-x C-/") 'goto-last-change)))
-   (:name visible-mark
-	  :after (progn (require 'visible-mark)
-			(global-visible-mark-mode 1)))
-   ;; (:name cedet
-   ;; 	  :after (progn (load-file "~/.emacs.d/el-get/cedet/cedet-devel-load.el")
-   ;; 			(semantic-load-enable-excessive-code-helpers)))
-   ))
-
-;; now set our own packages
-(setq my:el-get-packages
-      '(
-	el-get
-	git-emacs
-	goto-last-change
-	visible-mark
-	cedet
-	))
-
-;; install new packages and init already installed packages
-(el-get 'sync my:el-get-packages)
-
-;; ================================
