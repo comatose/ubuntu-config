@@ -28,6 +28,7 @@
    (:name auto-complete
 	  :after (progn 
 		   (require 'auto-complete)
+		   (require 'auto-complete-config)
 		   (global-auto-complete-mode 1)
 		   (setq ac-auto-start nil)
 		   (define-key ac-mode-map (kbd "C-<return>") 'auto-complete)))
