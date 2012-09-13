@@ -95,8 +95,8 @@
       
 ;; ================ smex ================
       (setq smex-save-file "~/.emacs.d/.smex-items")
-      (global-set-key (kbd "M-x") 'smex)
-      (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+      (define-key ctl-x-map (kbd "C-m") 'smex)
+      (define-key ctl-x-map (kbd "m") 'smex-major-mode-commands)
 
 ;; ================ paren ================
       (show-paren-mode t)

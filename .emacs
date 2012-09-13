@@ -69,8 +69,6 @@
 (define-key ctl-x-map (kbd "l") 'split-window-horizontally)
 (define-key ctl-x-map (kbd "j") 'split-window-vertically)
 (define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
-(define-key ctl-x-map (kbd "m") 'smex)
-(define-key ctl-x-map (kbd "C-m") 'smex)
 (define-key ctl-x-map (kbd "C-k") 'kill-region)
 
 ;; on to the visual settings
@@ -279,7 +277,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  '(column-number-mode t)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-skip-threshold 2)
- '(ede-project-directories (quote ("/home/comatose/src/SAVLSim/arraysim")))
+ '(ede-project-directories (quote ("/home/comatose/workspace/test01" "/home/comatose/src/SAVLSim/arraysim")))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

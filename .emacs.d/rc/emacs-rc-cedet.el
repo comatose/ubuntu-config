@@ -6,67 +6,40 @@
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 (add-to-list 'load-path "~/.emacs.d/cedet-1.1/contrib/")
 (add-to-list 'Info-default-directory-list "~/.emacs.d/cedet-1.1/semantic/doc/")
- 
-;; Enable EDE (Project Management) features
-(global-ede-mode 1)
 
 ;; Enable EDE for a pre-existing C++ project
 ;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
 
-;; Enabling Semantic (code-parsing, smart completion) features
-;; Select one of the following:
+(semantic-load-enable-code-helpers)
+;; (semantic-load-enable-excessive-code-helpers)
 
-;; * This enables the database and idle reparse engines
-;; (semantic-load-enable-minimum-features)
-(semantic-load-enable-excessive-code-helpers)
+(which-function-mode)
+(global-semantic-highlight-func-mode)
+(global-semantic-highlight-edits-mode)
+(global-cedet-m3-minor-mode)
+(global-semanticdb-minor-mode)
+(global-semantic-decoration-mode)
 
-;; * This enables some tools useful for coding, such as summary mode,
-;;   imenu support, and the semantic navigator
-;; (semantic-load-enable-code-helpers)
-
-;; * This enables even more coding tools such as intellisense mode,
-;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-;; (semantic-load-enable-gaudy-code-helpers)
-
-;; * This enables the use of Exuberant ctags if you have it installed.
-;;   If you use C++ templates or boost, you should NOT enable it.
-;; (semantic-load-enable-all-exuberent-ctags-support)
-;;   Or, use one of these two types of support.
-;;   Add support for new languages only via ctags.
-;; (semantic-load-enable-primary-exuberent-ctags-support)
-;;   Add support for using ctags as a backup parser.
-;; (semantic-load-enable-secondary-exuberent-ctags-support)
-
-;; Enable SRecode (Template management) minor-mode.
-(global-srecode-minor-mode 1)
-
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
 ;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)
-(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-;(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)
-(add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
 ;;(add-to-list 'semantic-default-submodes 'global-semantic-show-unmatched-syntax-mode)
-;;(add-to-list 'semantic-default-submodes 'global-semantic-highlight-edits-mode)
-;;(add-to-list 'semantic-default-submodes 'global-semantic-show-parser-state-mode)
-;;(add-to-list 'semantic-default-submodes ')
 
-;; ;; Activate semantic
-;; ;; (semantic-mode 1)
+;; (require 'semantic/bovine/c)
+;; (require 'semantic/bovine/gcc)
+;; (require 'semantic/bovine/clang)
+;; (require 'semantic/ia)
+;; (require 'semantic/decorate/include)
+;; (require 'semantic/lex-spp)
+;; (require 'eassist)
 
-;; ;; (require 'semantic/bovine/c)
-;; ;; (require 'semantic/bovine/gcc)
-;; ;; (require 'semantic/bovine/clang)
-;; ;; (require 'semantic/ia)
-;; ;; (require 'semantic/decorate/include)
-;; ;; (require 'semantic/lex-spp)
-;; ;; (require 'eassist)
+;; Activate semantic
+;; (semantic-mode 1)
 
 ;; customisation of modes
 (defun alexott/cedet-hook ()
   (local-set-key (kbd "C-<return>") 'semantic-ia-complete-symbol)
-  ;; (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
 
   (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
   (local-set-key "\C-c=" 'semantic-decoration-include-visit)
@@ -88,8 +61,6 @@
 (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
 (defun alexott/c-mode-cedet-hook ()
- ;; (local-set-key "." 'semantic-complete-self-insert)
- ;; (local-set-key ">" 'semantic-complete-self-insert)
   (local-set-key "\C-ct" 'eassist-switch-h-cpp)
   (local-set-key "\C-xt" 'eassist-switch-h-cpp)
   (local-set-key "\C-ce" 'eassist-list-methods)
@@ -97,7 +68,7 @@
   (local-set-key (kbd ".") 'semantic-complete-self-insert)
   (local-set-key (kbd ">") 'semantic-complete-self-insert)
 
-  ;; (add-to-list 'ac-sources 'ac-source-etags)
+  (add-to-list 'ac-sources 'ac-source-etags)
   (add-to-list 'ac-sources 'ac-source-gtags)
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
@@ -109,10 +80,10 @@
 (when (cedet-ectag-version-check t)
   (semantic-load-enable-primary-ectags-support))
 
-;; SRecode
+;; Enable SRecode (Template management) minor-mode.
 (global-srecode-minor-mode 1)
-
-;; EDE
+ 
+;; Enable EDE (Project Management) features
 (global-ede-mode 1)
 (ede-enable-generic-projects)
 
