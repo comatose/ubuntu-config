@@ -56,25 +56,25 @@
 		   (global-auto-complete-mode 1)
 		   (setq ac-auto-start nil)
 		   (define-key ac-mode-map (kbd "M-<return>") 'auto-complete)))
-   (:name member-functions
-	  :after (progn
-		   (require 'member-functions)
-		   (add-hook 'c++-mode-hook 
-			     (lambda ()
-			       (let* ((c-file (buffer-file-name))
-			       ;; (let* ((c-file (buffer-file-name (current-buffer)))
-				      (h-file-list (list (concat (substring c-file 0 -3 ) "h")
-							 (concat (substring c-file 0 -3 ) "hpp")
-							 (concat (substring c-file 0 -1 ) "h")
-							 (concat (substring c-file 0 -1 ) "hpp"))))
-				 (if (or (equal (substring c-file -2 ) ".c")
-					 (equal (substring c-file -4 ) ".cpp"))
-				     (mapcar (lambda (h-file)
-					       (if (file-exists-p h-file)
-						   (expand-member-functions h-file c-file)))
-					     h-file-list))))
+   ;; (:name member-functions
+   ;; 	  :after (progn
+   ;; 		   (require 'member-functions)
+   ;; 		   (add-hook 'c++-mode-hook 
+   ;; 			     (lambda ()
+   ;; 			       (let* ((c-file (buffer-file-name))
+   ;; 			       ;; (let* ((c-file (buffer-file-name (current-buffer)))
+   ;; 				      (h-file-list (list (concat (substring c-file 0 -3 ) "h")
+   ;; 							 (concat (substring c-file 0 -3 ) "hpp")
+   ;; 							 (concat (substring c-file 0 -1 ) "h")
+   ;; 							 (concat (substring c-file 0 -1 ) "hpp"))))
+   ;; 				 (if (or (equal (substring c-file -2 ) ".c")
+   ;; 					 (equal (substring c-file -4 ) ".cpp"))
+   ;; 				     (mapcar (lambda (h-file)
+   ;; 					       (if (file-exists-p h-file)
+   ;; 						   (expand-member-functions h-file c-file)))
+   ;; 					     h-file-list))))
 
-			     )))
+   ;; 			     )))
    (:name haskell-mode
 	  :after (progn
 		   ;; Add the dir for loading haskell-site-file.

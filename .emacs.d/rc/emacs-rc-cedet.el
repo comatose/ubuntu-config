@@ -1,6 +1,10 @@
-(load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
-(add-to-list 'load-path "~/.emacs.d/cedet-1.1/contrib/")
-(add-to-list 'Info-default-directory-list "~/.emacs.d/cedet-1.1/semantic/doc/")
+(load-file "~/.emacs.d/cedet/cedet-devel-load.el")
+(add-to-list 'load-path "~/.emacs.d/cedet/contrib/")
+(add-to-list 'Info-default-directory-list "~/.emacs.d/cedet/doc/info/")
+
+;; (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
+;; (add-to-list 'load-path "~/.emacs.d/cedet-1.1/contrib/")
+;; (add-to-list 'Info-default-directory-list "~/.emacs.d/cedet-1.1/semantic/doc/")
 
 ;; (add-to-list 'load-path "~/.emacs.d/el-get/cedet/contrib/")
 ;; (add-to-list 'Info-default-directory-list "~/.emacs.d/el-get/cedet/doc/info/")
@@ -22,7 +26,7 @@
 (setq semanticdb-default-save-directory "~/.emacs.d/semanticdb")
 
 ;; Enable Semantic
-;; (semantic-mode 1)
+(semantic-mode 1)
 
 (semantic-load-enable-code-helpers)
 ;; (semantic-load-enable-excessive-code-helpers)
@@ -33,7 +37,7 @@
 ;; Enable EDE (Project Management) features
 (global-ede-mode t)
 
-;; (semantic-clang-activate)
+(semantic-clang-activate)
 
 ;; ;; Enable EDE for a pre-existing C++ project
 ;; (ede-cpp-root-project "arraysim" :file "~/src/SAVLSim/arraysim/Project.ede")
