@@ -10,6 +10,7 @@
 
 ;; ================ CEDET ================
 (load "~/.emacs.d/rc/emacs-rc-cedet.el")
+;; (load "~/.emacs.d/rc/emacs-rc-cedet-old.el")
 
 ;; ========== view-mode  ==========
 (define-key ctl-x-map (kbd "C-q") 'view-mode)
@@ -43,6 +44,26 @@
 ;;   (view-mode 1))
 
 ;; ========== etc.  ==========
+(show-paren-mode t)
+
+(global-set-key (kbd "C-; C-f") 'flymake-mode)
+
+(ido-mode t)
+(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
+(setq ido-enable-flex-matching t)
+(setq ido-use-filename-at-point 'guess)
+(setq ido-show-dot-for-dired t)
+(define-key ctl-x-map (kbd "B") 'ibuffer)
+(global-set-key (kbd "M-i") 'idomenu)
+
+;; (add-hook 'c-mode-common-hook
+;; 	  (lambda()
+;; 	    (local-set-key (kbd "C-c o") 'ff-find-other-file)))
+
+(setq compilation-disable-input nil)
+(setq compilation-scroll-output t)
+(setq mode-compile-always-save-buffer-p t)
+
 (setq enable-recursive-minibuffers t)
 
 (define-key ctl-x-map (kbd "c") 'delete-frame)
@@ -52,7 +73,7 @@
 (add-to-list 'completion-ignored-extensions ".hi")
 
 ;; cd /usr/src; sudo apt-get source emacs24
-(setq find-function-C-source-directory "/usr/src/emacs24-24.1+1/src")
+(setq find-function-C-source-directory "/usr/src/emacs-snapshot-20120919/src")
 
 (setq kill-whole-line t)
 
@@ -119,14 +140,10 @@
 (setq scroll-preserve-screen-position t)
 
 ;; ========== Place Backup Files in Specific Directory ==========
-;; Enable backup files.
 (setq make-backup-files t)
-
-;; Enable versioning with default values (keep five last versions, I think!)
 (setq version-control t)
-
-;; Save all backup file in this directory.
 (setq backup-directory-alist (quote ((".*" . "/tmp/emacs_backups/"))))
+(setq delete-old-versions t)
 
 ;; ========== from http://dotfiles.org/~rretzbach/.emacs ==========
 ;; set default mode
@@ -274,10 +291,11 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(column-number-mode t)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-skip-threshold 2)
- '(ede-project-directories (quote ("/home/comatose/workspace/test01" "/home/comatose/src/SAVLSim/arraysim")))
+ '(ede-project-directories (quote ("/home/comatose/src/SAVLSim/arraysim/src" "/home/comatose/src/SAVLSim/arraysim/include" "/home/comatose/src/SAVLSim/arraysim")))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

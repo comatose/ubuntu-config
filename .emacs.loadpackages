@@ -1,137 +1,111 @@
-; -*- mode: Emacs-Lisp; -*-
+; -*- mode: Emacs-Lisp;-*-
+;; Add a larger package list
+(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+			 ("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")))
+;; (package-refresh-contents)
 
-;; ================ ELPA  ================
-(if (>= emacs-major-version 24)
-    (progn
-      ;; Add a larger package list
-      (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-			       ("gnu" . "http://elpa.gnu.org/packages/")
-			       ("marmalade" . "http://marmalade-repo.org/packages/")))
-      ;; (package-refresh-contents)
-
-      (mapc
-       (lambda (x) (when (not (require x nil t)) (package-install x)))
-       '(notify
-	 flymake
-	 flymake-cursor
-	 rainbow-mode
-	 color-theme-sanityinc-solarized
-	 haskell-mode
-	 ghc
-	 xcscope
-	 bookmark+
-	 smex
-	 paren
-	 magit
-	 term
-	 ido
-	 dired-x
-	 yasnippet
-	 idomenu
-	 gtags
-	 fuzzy
-	 ))
-
-;; ================ flymake ================
-      (global-set-key (kbd "C-; C-f") 'flymake-mode)
-
-;; ================ rainbow-mode ================
-      (defun all-css-modes() (css-mode)
-	(rainbow-mode))
-      (add-to-list 'auto-mode-alist '("\.css$" . all-css-modes))
+(mapc
+ (lambda (x) (when (not (require x nil t)) (package-install x)))
+ '(
+   color-theme-sanityinc-solarized
+   term
+   ;; notify
+   ;; flymake
+   ;; flymake-cursor
+   ;; rainbow-mode
+   ;; haskell-mode
+   ;; ghc
+   ;; xcscope
+   ;; bookmark+
+   ;; smex
+   ;; paren
+   ;; magit
+   ;; ido
+   ;; dired-x
+   ;; yasnippet
+   ;; idomenu
+   ;; gtags
+   ;; fuzzy
+   ))
 
 ;; ================ color-theme-sanityinc-solarized ================
-      ;; don't load solarized-themes to make the background transparent,
-      ;; unless using window-system
-      (when window-system
-	(color-theme-sanityinc-solarized-dark))
-
-;; ================ haskell-mode ================
-      ;; Add the dir for loading haskell-site-file.
-      ;; (load-file "~/.emacs.d/init-haskell-mode.el")
-
-      ;; Override and enhance the settings of the above.
-      ;; (add-hook 
-      ;;  'haskell-mode-hook 
-      ;;  '(lambda () 
-	 ;; (load "haskell-site-file")
-	 ;; (load "haskell-process")
-	 ;; (load "haskell-session")
-	 ;; (load "haskell-interactive-mode")
-
-	 ;; (setq haskell-process-type 'ghci)
-
-	 ;; (turn-off-haskell-simple-indent)
-	 ;; (define-key haskell-mode-map (kbd "<return>") nil)
-	 ;; (define-key haskell-mode-map (kbd "C-<return>") nil)
-	 ;; (turn-on-haskell-indentation)
-
-	 ;; (turn-on-haskell-doc-mode)
-	 ;; (font-lock-mode)
-
-	 ;; (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
-	 ;; (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
-       ;; 	 )
-       ;; t)
-
-;; ================ ghc ================
-      (autoload 'ghc-init "ghc" nil t)
-      (add-hook 'haskell-mode-hook '(lambda () (ghc-init) (flymake-mode)))
-
-;; ================ xclip ================
-      ;; using x clip board system when terminal-mode.
-      (unless window-system
-	(when (not (require 'xclip nil t))
-	  (package-install 'xclip)))
-	
-;; ================ bookmark+ ================
-      (global-set-key (kbd "<S-up>") 'bmkp-previous-bookmark)
-      (global-set-key (kbd "<S-down>") 'bmkp-next-bookmark)
-
-      (setq bmkp-auto-light-when-set 'any-bookmark)
-      (setq bmkp-auto-light-when-jump 'any-bookmark)
-      (setq bmkp-default-bookmark-file "~/.emacs.d/.bookmarks")
-      (setq bmkp-last-as-first-bookmark-file nil)
-      
-;; ================ smex ================
-      (setq smex-save-file "~/.emacs.d/.smex-items")
-      (define-key ctl-x-map (kbd "C-m") 'smex)
-      (define-key ctl-x-map (kbd "m") 'smex-major-mode-commands)
-
-;; ================ paren ================
-      (show-paren-mode t)
-
-;; ================ magit ================
-      (define-key ctl-x-map (kbd "C-z") 'magit-status)
+;; don't load solarized-themes to make the background transparent,
+;; unless using window-system
+(when window-system
+  (color-theme-sanityinc-solarized-dark))
 
 ;; ================ term ================
-      ;; If you do use M-x term, you will notice there's line mode that acts like
-      ;; emacs buffers, and there's the default char mode that will send your
-      ;; input char-by-char, so that curses application see each of your key
-      ;; strokes.
-      ;;
-      ;; The default way to toggle between them is C-c C-j and C-c C-k, let's
-      ;; better use just one key to do the same.
-      (define-key term-raw-map  (kbd "C-'") 'term-line-mode)
-      (define-key term-mode-map (kbd "C-'") 'term-char-mode)
+;; If you do use M-x term, you will notice there's line mode that acts like
+;; emacs buffers, and there's the default char mode that will send your
+;; input char-by-char, so that curses application see each of your key
+;; strokes.
+;;
+;; The default way to toggle between them is C-c C-j and C-c C-k, let's
+;; better use just one key to do the same.
+(define-key term-raw-map  (kbd "C-'") 'term-line-mode)
+(define-key term-mode-map (kbd "C-'") 'term-char-mode)
 
-      ;; Have C-y act as usual in term-mode, to avoid C-' C-y C-'
-      ;; Well the real default would be C-c C-j C-y C-c C-k.
-      (define-key term-raw-map  (kbd "C-y") 'term-paste)
+;; Have C-y act as usual in term-mode, to avoid C-' C-y C-'
+;; Well the real default would be C-c C-j C-y C-c C-k.
+(define-key term-raw-map  (kbd "C-y") 'term-paste)
 
-;; ================ ido ================
-      (ido-mode t)
-      (setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
-      (setq ido-enable-flex-matching t)
-      (setq ido-use-filename-at-point 'guess)
-      (setq ido-show-dot-for-dired t)
-      (define-key ctl-x-map (kbd "B") 'ibuffer)
-      (global-set-key (kbd "M-i") 'idomenu)
+;; ;; ================ rainbow-mode ================
+;; (defun all-css-modes() (css-mode)
+;;   (rainbow-mode))
+;; (add-to-list 'auto-mode-alist '("\.css$" . all-css-modes))
 
-;; ================ yasnippet ================
-      (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
-      (yas/global-mode 1)
-      (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
-;; ================================
-))
+;; ;; ================ haskell-mode ================
+;; ;; Add the dir for loading haskell-site-file.
+;; ;; (load-file "~/.emacs.d/init-haskell-mode.el")
+
+;; ;; Override and enhance the settings of the above.
+;; ;; (add-hook 
+;; ;;  'haskell-mode-hook 
+;; ;;  '(lambda () 
+;; ;; (load "haskell-site-file")
+;; ;; (load "haskell-process")
+;; ;; (load "haskell-session")
+;; ;; (load "haskell-interactive-mode")
+
+;; ;; (setq haskell-process-type 'ghci)
+
+;; ;; (turn-off-haskell-simple-indent)
+;; ;; (define-key haskell-mode-map (kbd "<return>") nil)
+;; ;; (define-key haskell-mode-map (kbd "C-<return>") nil)
+;; ;; (turn-on-haskell-indentation)
+
+;; ;; (turn-on-haskell-doc-mode)
+;; ;; (font-lock-mode)
+
+;; ;; (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hoogle)
+;; ;; (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hayoo)
+;; ;; 	 )
+;; ;; t)
+
+;; ;; ================ ghc ================
+;; (autoload 'ghc-init "ghc" nil t)
+;; (add-hook 'haskell-mode-hook '(lambda () (ghc-init) (flymake-mode)))
+
+;; ;; ================ bookmark+ ================
+;; (global-set-key (kbd "<S-up>") 'bmkp-previous-bookmark)
+;; (global-set-key (kbd "<S-down>") 'bmkp-next-bookmark)
+
+;; (setq bmkp-auto-light-when-set 'any-bookmark)
+;; (setq bmkp-auto-light-when-jump 'any-bookmark)
+;; (setq bmkp-default-bookmark-file "~/.emacs.d/.bookmarks")
+;; (setq bmkp-last-as-first-bookmark-file nil)
+
+;; ;; ================ smex ================
+;; (setq smex-save-file "~/.emacs.d/.smex-items")
+;; (define-key ctl-x-map (kbd "C-m") 'smex)
+;; (define-key ctl-x-map (kbd "m") 'smex-major-mode-commands)
+
+;; ;; ================ magit ================
+;; (define-key ctl-x-map (kbd "C-z") 'magit-status)
+
+;; ;; ================ yasnippet ================
+;; (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
+;; (yas/global-mode 1)
+;; (yas/load-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets")
 

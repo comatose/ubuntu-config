@@ -1,40 +1,52 @@
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
-;; IMPORTANT: For Emacs >= 23.2, you must place this *before* any
-;; CEDET component (including EIEIO) gets activated by another 
-;; package (Gnus, auth-source, ...).
 (load-file "~/.emacs.d/cedet-1.1/common/cedet.el")
 (add-to-list 'load-path "~/.emacs.d/cedet-1.1/contrib/")
 (add-to-list 'Info-default-directory-list "~/.emacs.d/cedet-1.1/semantic/doc/")
 
-;; Enable EDE for a pre-existing C++ project
-;; (ede-cpp-root-project "NAME" :file "~/myproject/Makefile")
+;; (add-to-list 'load-path "~/.emacs.d/el-get/cedet/contrib/")
+;; (add-to-list 'Info-default-directory-list "~/.emacs.d/el-get/cedet/doc/info/")
+
+;; Add further minor-modes to be enabled by semantic-mode.
+;; See doc-string of `semantic-default-submodes' for other things
+;; you can use here.
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
+;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-highlight-edits-mode t)
+(add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode t)
+(add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode t)
+
+(which-function-mode)
+
+(setq semanticdb-default-save-directory "~/.emacs.d/semanticdb")
+
+;; Enable Semantic
+;; (semantic-mode 1)
 
 (semantic-load-enable-code-helpers)
 ;; (semantic-load-enable-excessive-code-helpers)
 
-(which-function-mode)
-(global-semantic-highlight-func-mode)
-(global-semantic-highlight-edits-mode)
-(global-cedet-m3-minor-mode)
-(global-semanticdb-minor-mode)
-(global-semantic-decoration-mode)
+;; Enable SRecode (Template management) minor-mode.
+(global-srecode-minor-mode 1)
 
-;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-;;(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)
-;;(add-to-list 'semantic-default-submodes 'global-semantic-show-unmatched-syntax-mode)
+;; Enable EDE (Project Management) features
+(global-ede-mode t)
 
-;; (require 'semantic/bovine/c)
-;; (require 'semantic/bovine/gcc)
-;; (require 'semantic/bovine/clang)
-;; (require 'semantic/ia)
-;; (require 'semantic/decorate/include)
-;; (require 'semantic/lex-spp)
-;; (require 'eassist)
+;; (semantic-clang-activate)
 
-;; Activate semantic
-;; (semantic-mode 1)
+;; ;; Enable EDE for a pre-existing C++ project
+;; (ede-cpp-root-project "arraysim" :file "~/src/SAVLSim/arraysim/Project.ede")
+;; (when (file-exists-p "~/src/SAVLSim/arraysim/Project.ede")
+;;   (setq arraysim-project
+;; 	(ede-cpp-root-project "arraysim"
+;; 			      :file "~/src/SAVLSim/arraysim/Project.ede"
+;; 			      ;; :system-include-path '("/home/ott/exp/include"
+;; 			      ;; 			     boost-base-directory)
+;; 			      ;; :local-variables (list
+;; 			      ;; 			(cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
+;; 			      ;; 			)
+;; 			      )))
 
 ;; customisation of modes
 (defun alexott/cedet-hook ()
@@ -73,19 +85,11 @@
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 
-(when (cedet-gnu-global-version-check t)
-  (semanticdb-enable-gnu-global-databases 'c-mode t)
-  (semanticdb-enable-gnu-global-databases 'c++-mode t))
+(semanticdb-enable-gnu-global-databases 'c-mode)
+(semanticdb-enable-gnu-global-databases 'c++-mode)
 
 (when (cedet-ectag-version-check t)
   (semantic-load-enable-primary-ectags-support))
-
-;; Enable SRecode (Template management) minor-mode.
-(global-srecode-minor-mode 1)
- 
-;; Enable EDE (Project Management) features
-(global-ede-mode 1)
-(ede-enable-generic-projects)
 
 (defun recur-list-files (dir re)
   "Returns list of files in directory matching to given regex"
@@ -122,12 +126,6 @@
             (lst (assoc var ov)))
         (when lst
           (cdr lst))))))
-
-;; setup compile package
-(require 'compile)
-(setq compilation-disable-input nil)
-(setq compilation-scroll-output t)
-(setq mode-compile-always-save-buffer-p t)
 
 (defun alexott/compile ()
   "Saves all unsaved buffers, and runs 'compile'."
@@ -178,32 +176,32 @@
 
 ;; Projects
 
-;; cpp-tests project definition
-(when (file-exists-p "~/projects/lang-exp/cpp/CMakeLists.txt")
-  (setq cpp-tests-project
-	(ede-cpp-root-project "cpp-tests"
-			      :file "~/projects/lang-exp/cpp/CMakeLists.txt"
-			      :system-include-path '("/home/ott/exp/include"
-						     boost-base-directory)
-			      :local-variables (list
-						(cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
-						)
-			      )))
+;; ;; cpp-tests project definition
+;; (when (file-exists-p "~/projects/lang-exp/cpp/CMakeLists.txt")
+;;   (setq cpp-tests-project
+;; 	(ede-cpp-root-project "cpp-tests"
+;; 			      :file "~/projects/lang-exp/cpp/CMakeLists.txt"
+;; 			      :system-include-path '("/home/ott/exp/include"
+;; 						     boost-base-directory)
+;; 			      :local-variables (list
+;; 						(cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
+;; 						)
+;; 			      )))
 
-(when (file-exists-p "~/projects/squid-gsb/README")
-  (setq squid-gsb-project
-	(ede-cpp-root-project "squid-gsb"
-			      :file "~/projects/squid-gsb/README"
-			      :system-include-path '("/home/ott/exp/include"
-						     boost-base-directory)
-			      :local-variables (list
-						(cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
-						)
-			      )))
+;; (when (file-exists-p "~/projects/squid-gsb/README")
+;;   (setq squid-gsb-project
+;; 	(ede-cpp-root-project "squid-gsb"
+;; 			      :file "~/projects/squid-gsb/README"
+;; 			      :system-include-path '("/home/ott/exp/include"
+;; 						     boost-base-directory)
+;; 			      :local-variables (list
+;; 						(cons 'compile-command 'alexott/gen-cmake-debug-compile-string)
+;; 						)
+;; 			      )))
 
-;; (when (file-exists-p "~/work/emacs-head/README")
+;; (when (file-exists-p "~/src/SAVLSim/arraysim/main.cpp")
 ;;   (setq emacs-project
-;; 	(ede-emacs-project "emacs-head"
+;; 	(ede-emacs-project "arraysim"
 ;; 			   :file "~/work/emacs-head/README")))
 
 
