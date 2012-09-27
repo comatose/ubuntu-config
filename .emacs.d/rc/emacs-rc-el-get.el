@@ -32,7 +32,7 @@
 	visible-mark
 	auto-complete
 	ac-ghc-mod
-	auto-complete-extension
+	;; auto-complete-extension
 	member-functions
 	;; package
 	))

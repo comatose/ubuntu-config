@@ -53,7 +53,6 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point 'guess)
 (setq ido-show-dot-for-dired t)
-(define-key ctl-x-map (kbd "B") 'ibuffer)
 (global-set-key (kbd "M-i") 'idomenu)
 
 ;; (add-hook 'c-mode-common-hook
@@ -86,7 +85,12 @@
 (global-set-key (kbd "M-<delete>") 'delete-window)
 (global-set-key (kbd "C-w") 'backward-kill-word)
 
-(define-key ctl-x-map (kbd "C-b") 'electric-buffer-list)
+;; ibuffer mode
+(define-key ctl-x-map (kbd "C-b") 'ibuffer)
+(define-key ctl-x-map (kbd "B") 'ibuffer-other-window)
+(setq ibuffer-default-sorting-mode 'major-mode)
+
+;; (define-key ctl-x-map (kbd "C-b") 'electric-buffer-list)
 (define-key ctl-x-map (kbd "l") 'split-window-horizontally)
 (define-key ctl-x-map (kbd "j") 'split-window-vertically)
 (define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
