@@ -82,8 +82,8 @@
 (global-set-key (kbd "<Hangul>") 'toggle-input-method)
 (setq default-input-method "korean-hangul")
 
-(global-set-key (kbd "M-<delete>") 'delete-window)
-(global-set-key (kbd "C-w") 'backward-kill-word)
+;; (global-set-key (kbd "M-<delete>") 'delete-window)
+;; (global-set-key (kbd "C-w") 'backward-kill-word)
 
 ;; ibuffer mode
 (define-key ctl-x-map (kbd "C-b") 'ibuffer)
@@ -93,8 +93,8 @@
 ;; (define-key ctl-x-map (kbd "C-b") 'electric-buffer-list)
 (define-key ctl-x-map (kbd "l") 'split-window-horizontally)
 (define-key ctl-x-map (kbd "j") 'split-window-vertically)
-(define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
-(define-key ctl-x-map (kbd "C-k") 'kill-region)
+;; (define-key ctl-x-map (kbd "C-<delete>") 'delete-other-window)
+;; (define-key ctl-x-map (kbd "C-k") 'kill-region)
 
 ;; on to the visual settings
 (setq inhibit-splash-screen t)		; no splash screen, thanks
