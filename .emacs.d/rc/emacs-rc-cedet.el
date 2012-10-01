@@ -93,6 +93,8 @@
 
   (add-to-list 'ac-sources 'ac-source-etags)
   (add-to-list 'ac-sources 'ac-source-gtags)
+
+  (c-toggle-hungry-state 1)
   )
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
 

@@ -44,6 +44,8 @@
 ;;   (view-mode 1))
 
 ;; ========== etc.  ==========
+(global-set-key (kbd "C-x a r") 'align-regexp)
+
 (show-paren-mode t)
 
 (global-set-key (kbd "C-; C-f") 'flymake-mode)
