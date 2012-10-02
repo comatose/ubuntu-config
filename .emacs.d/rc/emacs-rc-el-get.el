@@ -33,9 +33,10 @@
 	visible-mark
 	ac-ghc-mod
 	;; auto-complete-extension
-	member-functions
+	;; member-functions
 	;; package
 	sr-speedbar
+	switch-window
 	))
 
 ;; set local recipes
@@ -133,6 +134,10 @@
 		   (setq yas/trigger-key "<C-tab>") ;; make sure this is before yas/initialize
 		   (yas/global-mode 1)
 		   (yas/load-directory "~/.emacs.d/el-get/yasnippet/snippets")
+		   ))
+   (:name switch-window
+	  :after (progn
+		   (setq switch-window-shortcut-style 'alphabet)
 		   ))
    )
  )

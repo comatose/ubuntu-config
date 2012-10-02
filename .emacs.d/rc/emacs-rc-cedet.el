@@ -73,6 +73,7 @@
   (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
   (local-set-key (kbd "C-c <left>") 'semantic-tag-folding-fold-block)
   (local-set-key (kbd "C-c <right>") 'semantic-tag-folding-show-block)
+  (local-set-key (kbd "C-c b") 'semantic-mrub-switch-tags)
 
   (add-to-list 'ac-sources 'ac-source-semantic)
   )
@@ -91,8 +92,8 @@
   (local-set-key (kbd ".") 'semantic-complete-self-insert)
   (local-set-key (kbd ">") 'semantic-complete-self-insert)
 
-  (add-to-list 'ac-sources 'ac-source-etags)
-  (add-to-list 'ac-sources 'ac-source-gtags)
+  ;; (add-to-list 'ac-sources 'ac-source-etags)
+  ;; (add-to-list 'ac-sources 'ac-source-gtags)
 
   (c-toggle-hungry-state 1)
   )
