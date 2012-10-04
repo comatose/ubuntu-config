@@ -62,18 +62,25 @@
 ;; customisation of modes
 (defun alexott/cedet-hook ()
   (local-set-key (kbd "C-<return>") 'semantic-ia-complete-symbol)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+  (local-set-key (kbd "C-c ?") 'semantic-ia-complete-symbol-menu)
+  (local-set-key (kbd "C-c =") 'semantic-decoration-include-visit)
 
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+  (local-set-key (kbd "C-c j") 'semantic-ia-fast-jump)
+  (local-set-key (kbd "C-c J") 'semantic-mrub-switch-tags)
+  (local-set-key (kbd "C-c p") 'semantic-analyze-proto-impl-toggle)
 
-  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-  (local-set-key "\C-cq" 'semantic-ia-show-doc)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (local-set-key (kbd "C-c <left>") 'semantic-tag-folding-fold-block)
-  (local-set-key (kbd "C-c <right>") 'semantic-tag-folding-show-block)
-  (local-set-key (kbd "C-c b") 'semantic-mrub-switch-tags)
+  (local-set-key (kbd "C-c , j") 'semantic-complete-jump-local)
+  (local-set-key (kbd "C-c , J") 'semantic-complete-jump)
+  (local-set-key (kbd "C-c , u") 'senator-go-to-up-reference)
+  (local-set-key (kbd "C-c , p") 'senator-previous-tag)
+  (local-set-key (kbd "C-c , n") 'senator-next-tag)
+
+  (local-set-key (kbd "C-c q") 'semantic-ia-show-doc)
+  (local-set-key (kbd "C-c s") 'semantic-ia-show-summary)
+
+  ;; (local-set-key (kbd "C-c >") 'semantic-complete-analyze-inline)
+  ;; (local-set-key (kbd "C-c <left>") 'semantic-tag-folding-fold-block)
+  ;; (local-set-key (kbd "C-c <right>") 'semantic-tag-folding-show-block)
 
   (add-to-list 'ac-sources 'ac-source-semantic)
   )
@@ -85,10 +92,12 @@
 (add-hook 'erlang-mode-hook 'alexott/cedet-hook)
 
 (defun alexott/c-mode-cedet-hook ()
-  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
-  (local-set-key "\C-ce" 'eassist-list-methods)
-  (local-set-key "\C-c\C-r" 'semantic-symref)
+  (local-set-key (kbd "C-c t") 'eassist-switch-h-cpp)
+  (local-set-key (kbd "C-c l") 'eassist-list-methods)
+
+  (local-set-key (kbd "C-c , c") 'semantic-symref)
+  (local-set-key (kbd "C-c , C") 'semantic-symref-symbol)
+
   (local-set-key (kbd ".") 'semantic-complete-self-insert)
   (local-set-key (kbd ">") 'semantic-complete-self-insert)
 

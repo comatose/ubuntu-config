@@ -37,6 +37,7 @@
 	;; package
 	sr-speedbar
 	switch-window
+	iedit
 	))
 
 ;; set local recipes
@@ -138,6 +139,10 @@
    (:name switch-window
 	  :after (progn
 		   (setq switch-window-shortcut-style 'alphabet)
+		   ))
+   (:name iedit
+	  :after (progn
+		   (setq iedit-occurrence-face 'underline)
 		   ))
    )
  )

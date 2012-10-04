@@ -12,6 +12,20 @@
 (load "~/.emacs.d/rc/emacs-rc-cedet.el")
 ;; (load "~/.emacs.d/rc/emacs-rc-cedet-old.el")
 
+(when(file-exists-p "~/src/SAVLSim/README")
+  (setq savlsim-project
+	(ede-cpp-root-project "SAVLSim"
+			      :name "SAVLSim"
+			      :file "~/src/SAVLSim/README"
+			      :include-path '("/"
+					      "/libddbg"
+					      "/libparam"
+					      "/diskmodel"
+					      "/memsmodel"
+					      "/ssdmodel"
+					      "/src"
+					      )
+	)))
 ;; ========== view-mode  ==========
 (define-key ctl-x-map (kbd "C-q") 'view-mode)
 
@@ -47,8 +61,6 @@
 (global-set-key (kbd "C-x a r") 'align-regexp)
 
 (show-paren-mode t)
-
-(global-set-key (kbd "C-; C-f") 'flymake-mode)
 
 (ido-mode t)
 (setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
@@ -301,7 +313,7 @@ This is the same as using \\[set-mark-command] with the prefix argument."
  '(column-number-mode t)
  '(compilation-auto-jump-to-first-error t)
  '(compilation-skip-threshold 2)
- '(ede-project-directories (quote ("/home/comatose/src/SAVLSim/arraysim/src" "/home/comatose/src/SAVLSim/arraysim/include" "/home/comatose/src/SAVLSim/arraysim")))
+ '(ede-project-directories (quote ("/home/comatose/src/arraysim/src" "/home/comatose/src/arraysim")))
  '(show-paren-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces
