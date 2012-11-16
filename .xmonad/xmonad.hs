@@ -14,14 +14,12 @@ import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WorkspaceDir
 import XMonad.Prompt
 import XMonad.Prompt.RunOrRaise
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -166,9 +164,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Launch dmenu via yeganesh.
   -- Use this to launch programs without a key binding.
   , ((modMask, xK_r),
---     spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
---     spawn "dmenu_run")
-     runOrRaisePrompt promptConfig)
+    -- spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
+    spawn "dmenu_run -b -i -nb black -nf blue -fn '10x20'")
+    -- runOrRaisePrompt promptConfig)
 
   , ((modMask .|. shiftMask, xK_r),
      changeDir promptConfig)
