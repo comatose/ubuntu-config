@@ -8,7 +8,7 @@ Config {
     font = "-misc-fixed-*-*-*-*-18-*-*-*-*-*-*-*",
     bgColor = "#000000",
     fgColor = "#ffffff",
-    position = Static { xpos = 1600, ypos = 0, width = 1920, height = 20 },
+    position = Static { xpos = 0, ypos = 0, width = 1920, height = 20 },
 --    position = Static { xpos = 0, ypos = 0, width = 1600, height = 20 },
     lowerOnStart = True,
     commands = [
