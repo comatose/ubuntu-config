@@ -2,17 +2,16 @@
 -- Author: Vic Fryzel
 -- http://github.com/vicfryzel/xmonad-config
 
--- This is setup for dual 1920x1080 monitors, with the left monitor as primary
+-- This is setup for dual 1600x900 monitors, with the right monitor as primary
 Config {
 --    font = "xft:Fixed-20",
     font = "-misc-fixed-*-*-*-*-18-*-*-*-*-*-*-*",
-    borderColor = "#BFBFBF",
-    border = NoBorder,
     bgColor = "#000000",
     fgColor = "#ffffff",
-    position = Static { xpos = 0, ypos = 0, width = 1920, height = 35 },
-    -- position = Static { xpos = 900, ypos = 0, width = 1920, height = 20 },
-    lowerOnStart = False,
+--    position = Static { xpos = 1600, ypos = 0, width = 1920, height = 20 },
+    position = Static { xpos = 1920, ypos = 0, width = 900, height = 20 },
+    -- position = Static { xpos = 0, ypos = 0, width = 900, height = 20 },
+    lowerOnStart = True,
     commands = [
         Run Weather "RKSM" ["-t","<station>: <tempC> 'C <skyCondition>","-L","64","-H","77","-n","#CEFFAC","-h","#FFB6B0","-l","#96CBFE"] 36000,
 --        Run MultiCpu ["-t","Cpu: <total0> <total1>","-L","30","-H","60","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC","-w","3"] 10,
@@ -25,5 +24,6 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{ %multicpu%   %memory%   %swap%   %eth0%   <fc=#FFFFCC>%date%</fc>   %RKSM%"
+    -- template = "%StdinReader% }{ %multicpu%   %memory%   %swap%   %eth0%   <fc=#FFFFCC>%date%</fc>   %RKSM%"
+    template = "%StdinReader% }{ <fc=#FFFFCC>%date%</fc>"
 }

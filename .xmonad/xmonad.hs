@@ -166,7 +166,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_r),
      -- spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
      spawn "dmenu_run -b -i -nb black -nf blue -fn '10x20'")
-    -- runOrRaisePrompt promptConfig)
+     -- runOrRaisePrompt promptConfig)
 
   , ((modMask .|. shiftMask, xK_r),
      spawn "gmrun")
@@ -415,7 +415,7 @@ promptConfig = defaultXPConfig
 --             , bgHLight = solyellow
 --             , fgHLight = solbase02
              , promptBorderWidth = 0
-             , height = 28
+             , height = 35
              , historyFilter = nub
              , showCompletionOnTab = False
              }
