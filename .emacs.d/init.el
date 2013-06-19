@@ -1,178 +1,111 @@
-;; emacs kicker --- kick start emacs setup
-;; Copyright (C) 2010 Dimitri Fontaine
+;;; init.el --- Prelude's configuration entry point.
 ;;
-;; Author: Dimitri Fontaine <dim@tapoueh.org>
-;; URL: https://github.com/dimitri/emacs-kicker
-;; Created: 2011-04-15
-;; Keywords: emacs setup el-get kick-start starter-kit
-;; Licence: WTFPL, grab your copy here: http://sam.zoy.org/wtfpl/
+;; Copyright (c) 2011 Bozhidar Batsov
 ;;
-;; This file is NOT part of GNU Emacs.
+;; Author: Bozhidar Batsov <bozhidar@batsov.com>
+;; URL: http://batsov.com/prelude
+;; Version: 1.0.0
+;; Keywords: convenience
 
-(require 'cl)				; common lisp goodies, loop
+;; This file is not part of GNU Emacs.
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;;; Commentary:
 
-(unless (require 'el-get nil t)
-  (url-retrieve
-   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
-   (lambda (s)
-     (let (el-get-master-branch)
-       (end-of-buffer)
-       (eval-print-last-sexp)))))
+;; This file simply sets up the default load path and requires
+;; the various modules defined within Emacs Prelude.
 
-;; now either el-get is `require'd already, or have been `load'ed by the
-;; el-get installer.
+;;; License:
 
-;; set local recipes
-(setq
- el-get-sources
- '((:name buffer-move			; have to add your own keys
-	  :after (progn
-		   (global-set-key (kbd "<C-S-up>")     'buf-move-up)
-		   (global-set-key (kbd "<C-S-down>")   'buf-move-down)
-		   (global-set-key (kbd "<C-S-left>")   'buf-move-left)
-		   (global-set-key (kbd "<C-S-right>")  'buf-move-right)))
-
-   (:name smex				; a better (ido like) M-x
-	  :after (progn
-		   (setq smex-save-file "~/.emacs.d/.smex-items")
-		   (global-set-key (kbd "M-x") 'smex)
-		   (global-set-key (kbd "M-X") 'smex-major-mode-commands)))
-
-   (:name magit				; git meet emacs, and a binding
-	  :after (progn
-		   (global-set-key (kbd "C-x C-z") 'magit-status)))
-
-   (:name goto-last-change		; move pointer back to last change
-	  :after (progn
-		   ;; when using AZERTY keyboard, consider C-x C-_
-		   (global-set-key (kbd "C-x C-_") 'goto-last-change)))))
-
-;; now set our own packages
-(setq
- my:el-get-packages '(
-   el-get				; el-get is self-hosting
-   escreen            			; screen for emacs, C-\ C-h
-;;   php-mode-improved			; if you're into php...
-   switch-window			; takes over C-x o
-   auto-complete			; complete as you type with overlays
-   zencoding-mode			; http://www.emacswiki.org/emacs/ZenCoding
-   color-theme		                ; nice looking emacs
-   color-theme-tango	                ; check out color-theme-solarizede
-   color-theme-solarized
-   xclip
-   notify
-   haskell-mode
-   yasnippet
-   bookmark+
-   ))
-
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 3
+;; of the License, or (at your option) any later version.
 ;;
-;; Some recipes require extra tools to be installed
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
 ;;
-;; Note: el-get-install requires git, so we know we have at least that.
-;;
-;; (when (el-get-executable-find "cvs")
-;;   (add-to-list 'my:el-get-packages 'emacs-goodies-el)) ; the debian addons for emacs
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
 
-;; (when (el-get-executable-find "svn")
-;;   (loop for p in '(psvn    		; M-x svn-status
-;;		   yasnippet		; powerful snippet mode
-;; 		   )
-;; 	do (add-to-list 'my:el-get-packages p)))
+;;; Code:
 
-(setq my:el-get-packages
-      (append
-       my:el-get-packages
-       (loop for src in el-get-sources collect (el-get-source-name src))))
+(message "Prelude is powering up... Be patient, Master %s!" (getenv "USER"))
 
-;; install new packages and init already installed packages
-(el-get 'sync my:el-get-packages)
+(defvar prelude-dir (file-name-directory load-file-name)
+  "The root dir of the Emacs Prelude distribution.")
+(defvar prelude-core-dir (expand-file-name "core" prelude-dir)
+  "The home of Prelude's core functionality.")
+(defvar prelude-modules-dir (expand-file-name  "modules" prelude-dir)
+  "This directory houses all of the built-in Prelude modules.")
+(defvar prelude-personal-dir (expand-file-name "personal" prelude-dir)
+  "This directory is for your personal configuration.
 
-;; on to the visual settings
-(setq inhibit-splash-screen t)		; no splash screen, thanks
-(line-number-mode 1)			; have line numbers and
-(column-number-mode 1)			; column numbers in the mode line
+Users of Emacs Prelude are encouraged to keep their personal configuration
+changes in this directory.  All Emacs Lisp files there are loaded automatically
+by Prelude.")
+(defvar prelude-vendor-dir (expand-file-name "vendor" prelude-dir)
+  "This directory houses packages that are not yet available in ELPA (or MELPA).")
+(defvar prelude-snippets-dir (expand-file-name "snippets" prelude-dir)
+  "This folder houses additional yasnippet bundles distributed with Prelude.")
+(defvar prelude-personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
+  "This folder houses additional yasnippet bundles added by the users.")
+(defvar prelude-savefile-dir (expand-file-name "savefile" prelude-dir)
+  "This folder stores all the automatically generated save/history-files.")
+(defvar prelude-modules-file (expand-file-name "prelude-modules.el" prelude-dir)
+  "This files contains a list of modules that will be loaded by Prelude.")
 
-(tool-bar-mode -1)			; no tool bar with icons
-(scroll-bar-mode -1)			; no scroll bars
+(load (expand-file-name "cedet.el" prelude-personal-dir))
 
-;; choose your own fonts, in a system dependant way
-;;(if (string-match "apple-darwin" system-configuration)
-;;    (set-face-font 'default "Monaco-13")
-;;  (set-face-font 'default "Monospace-10"))
+(unless (file-exists-p prelude-savefile-dir)
+  (make-directory prelude-savefile-dir))
 
-(global-hl-line-mode)			; highlight current line
-(global-linum-mode 1)			; add line numbers on the left
+(defun prelude-add-subfolders-to-load-path (parent-dir)
+ "Add all first level PARENT-DIR subdirs to the `load-path'."
+ (dolist (f (directory-files parent-dir))
+   (let ((name (expand-file-name f parent-dir)))
+     (when (and (file-directory-p name)
+                (not (equal f ".."))
+                (not (equal f ".")))
+       (add-to-list 'load-path name)))))
 
-;; avoid compiz manager rendering bugs
-(add-to-list 'default-frame-alist '(alpha . 100))
+;; add Prelude's directories to Emacs's `load-path'
+(add-to-list 'load-path prelude-core-dir)
+(add-to-list 'load-path prelude-modules-dir)
+(add-to-list 'load-path prelude-vendor-dir)
+(prelude-add-subfolders-to-load-path prelude-vendor-dir)
 
-;; copy/paste with C-c and C-v and C-x, check out C-RET too
-;; (cua-mode)
+;; the core stuff
+(require 'prelude-packages)
+(require 'prelude-ui)
+(require 'prelude-core)
+(require 'prelude-mode)
+(require 'prelude-editor)
+(require 'prelude-global-keybindings)
 
-;; Use the clipboard, pretty please, so that copy/paste "works"
-;; (setq mouse-drag-copy-region nil)  ; stops selection with a mouse being immediately injected to the kill ring
-;; (setq x-select-enable-primary nil)  ; stops killing/yanking interacting with primary X11 selection
-(setq x-select-enable-clipboard t)
+;; OSX specific settings
+(when (eq system-type 'darwin)
+  (require 'prelude-osx))
 
-;; Navigate windows with M-<arrows>
-(windmove-default-keybindings 'meta)
-(setq windmove-wrap-around t)
+;; the modules
+(when (file-exists-p prelude-modules-file)
+  (load prelude-modules-file))
 
-; winner-mode provides C-<left> to get back to previous window layout
-(winner-mode 1)
+;; config changes made through the customize UI will be store here
+(setq custom-file (expand-file-name "custom.el" prelude-personal-dir))
 
-;; whenever an external process changes a file underneath emacs, and there
-;; was no unsaved changes in the corresponding buffer, just revert its
-;; content to reflect what's on-disk.
-(global-auto-revert-mode 1)
+;; load the personal settings (this includes `custom-file')
+(when (file-exists-p prelude-personal-dir)
+  (message "Loading personal configuration files in %s..." prelude-personal-dir)
+  (mapc 'load (directory-files prelude-personal-dir 't "^[^#].*el$")))
 
-;; M-x shell is a nice shell interface to use, let's make it colorful.  If
-;; you need a terminal emulator rather than just a shell, consider M-x term
-;; instead.
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+(message "Prelude is ready to do thy bidding, Master %s!" (getenv "USER"))
 
-;; If you do use M-x term, you will notice there's line mode that acts like
-;; emacs buffers, and there's the default char mode that will send your
-;; input char-by-char, so that curses application see each of your key
-;; strokes.
-;;
-;; The default way to toggle between them is C-c C-j and C-c C-k, let's
-;; better use just one key to do the same.
-(require 'term)
-(define-key term-raw-map  (kbd "C-'") 'term-line-mode)
-(define-key term-mode-map (kbd "C-'") 'term-char-mode)
+(prelude-eval-after-init
+ ;; greet the use with some useful tip
+ (run-at-time 5 nil 'prelude-tip-of-the-day))
 
-;; Have C-y act as usual in term-mode, to avoid C-' C-y C-'
-;; Well the real default would be C-c C-j C-y C-c C-k.
-(define-key term-raw-map  (kbd "C-y") 'term-paste)
-
-;; use ido for minibuffer completion
-(require 'ido)
-(ido-mode t)
-(setq ido-save-directory-list-file "~/.emacs.d/.ido.last")
-(setq ido-enable-flex-matching t)
-(setq ido-use-filename-at-point 'guess)
-(setq ido-show-dot-for-dired t)
-
-;; default key to switch buffer is C-x b, but that's not easy enough
-;;
-;; when you do that, to kill emacs either close its frame from the window
-;; manager or do M-x kill-emacs.  Don't need a nice shortcut for a once a
-;; week (or day) action.
-(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-;; (global-set-key (kbd "C-x C-c") 'ido-switch-buffer)
-(global-set-key (kbd "C-x B") 'ibuffer)
-
-;; C-x C-j opens dired with the cursor right on the file you're editing
-(require 'dired-x)
-
-;; full screen
-(defun fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen
-		       (if (frame-parameter nil 'fullscreen) nil 'fullboth)))
-(global-set-key [f11] 'fullscreen)
+;;; init.el ends here

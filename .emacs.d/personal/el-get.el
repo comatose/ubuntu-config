@@ -14,30 +14,48 @@
 (setq my:el-get-packages
       '(
 	el-get
-	;; cedet
+
 	auto-complete
-	notify
 	flymake-cursor
-	haskell-mode
-	ghc-mod
-	xcscope
-	bookmark+
-	smex
-	magit
-	yasnippet
+        smex
 	idomenu
-	xgtags
-	fuzzy
 	git-emacs
+	iedit
+	sr-speedbar
 	goto-last-change
-	visible-mark
+
+        ;; for haskell
+	ghc-mod
 	ac-ghc-mod
+
+        ;; for python
+        ac-python
+        python-pep8
+        pymacs
+        rope
+        ropemacs
+        ropemode
+        pylookup
+        ;; ipython
+        ;; anything-ipython
+
+	;; switch-window
+	;; pymacs
+	;; xgtags
+	;; fuzzy
+	;; visible-mark
+	;; haskell-mode
+	;; xcscope
+	;; bookmark+
+	;; magit
+	;; yasnippet
+	;; goto-last-change
+
+	;; cedet
+	;; notify
 	;; auto-complete-extension
 	;; member-functions
 	;; package
-	sr-speedbar
-	switch-window
-	iedit
 	))
 
 ;; set local recipes
@@ -48,51 +66,72 @@
 	  :after (progn
 		   ;; when using AZERTY keyboard, consider C-x C-_
 		   (global-set-key (kbd "C-x C-/") 'goto-last-change)))
+   (:name anything-ipython
+	  :after (progn
+                   (require 'anything-ipython)
+                   (add-hook 'python-mode-hook '(lambda ()
+                                                  (define-key py-mode-map (kbd "M-<tab>") 'anything-ipython-complete)) t)
+                   (add-hook 'ipython-shell-hook '(lambda ()
+                                                     (define-key py-mode-map (kbd "M-<tab>") 'anything-ipython-complete) t))
+                   
+                   ;; If you want to use anything-show-completion.el,(facultative)
+                   ;; <http://www.emacswiki.org/cgi-bin/emacs/anything-show-completion.el>
+                   ;; add these lines:
+                   ;; (when (require 'anything-show-completion nil t)
+                   ;;   (use-anything-show-completion 'anything-ipython-complete
+                   ;;                                 '(length initial-pattern)))
+                   ))
+   (:name python-mode
+	  :after (progn
+		   (require 'python-mode)
+                   (add-hook 'python-mode-hook '(lambda ()
+                                                  (define-key py-mode-map (kbd "C-c !") 'ipython)) t)
+                   ))
    (:name visible-mark
 	  :after (progn
 		   (require 'visible-mark)
 		   (global-visible-mark-mode 1)))
    (:name auto-complete
-	  :after (progn 
+	  :after (progn
 		   (require 'auto-complete)
 		   (require 'auto-complete-config)
 		   (global-auto-complete-mode 1)
 		   (setq ac-auto-start nil)
 		   (define-key ac-mode-map (kbd "M-<return>") 'auto-complete)))
    (:name haskell-mode
-	  :after (progn
-		   (add-hook 
-		    'haskell-mode-hook 
-		    '(lambda ()
-		       ;; (imenu-add-menubar-index)
-		       ;; (turn-on-font-lock)
-		       ;; (turn-off-haskell-doc-mode)
-		       ;; (setq haskell-doc-show-global-types t)
+   	  :after (progn
+   		   (add-hook
+   		    'haskell-mode-hook
+   		    '(lambda ()
+   		       ;; (imenu-add-menubar-index)
+   		       ;; (turn-on-font-lock)
+   		       ;; (turn-off-haskell-doc-mode)
+   		       ;; (setq haskell-doc-show-global-types t)
 
-		       (turn-on-haskell-indentation)
-		       (capitalized-words-mode)
+   		       (turn-on-haskell-indentation)
+   		       (capitalized-words-mode)
 
-		       (turn-on-haskell-decl-scan)
-		       (define-key haskell-mode-map (kbd "C-M-p") 'haskell-ds-backward-decl)
-		       (define-key haskell-mode-map (kbd "C-M-n") 'haskell-ds-forward-decl)
+   		       (turn-on-haskell-decl-scan)
+   		       (define-key haskell-mode-map (kbd "C-M-p") 'haskell-ds-backward-decl)
+   		       (define-key haskell-mode-map (kbd "C-M-n") 'haskell-ds-forward-decl)
 
-		       (speedbar-add-supported-extension ".hs")
+   		       (speedbar-add-supported-extension ".hs")
 
-		       (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hoogle)
-		       (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hayoo)
+   		       (define-key haskell-mode-map (kbd "C-c C-h") 'haskell-hoogle)
+   		       (define-key haskell-mode-map (kbd "C-c C-g") 'haskell-hayoo)
 
-		       (setq haskell-hoogle-command "hoogle-info")
+   		       (setq haskell-hoogle-command "hoogle-info")
 
-		       (setq haskell-stylish-on-save t)
-		       (setq haskell-tags-on-save t)
+   		       (setq haskell-stylish-on-save t)
+   		       (setq haskell-tags-on-save t)
 
-		       ;; resolve confliction with ghc-save-buffer
-		       (defadvice ghc-save-buffer
-		       	 (before stylish-and-hasktag activate)
-		       	 (haskell-mode-save-buffer)
-		       	 )
-		       )
-		    t)))
+   		       ;; ;; resolve confliction with ghc-save-buffer
+   		       ;; (defadvice ghc-save-buffer
+   		       ;; 	 (before stylish-and-hasktag activate)
+   		       ;; 	 (haskell-mode-save-buffer)
+   		       ;; 	 )
+   		       )
+   		    t)))
    (:name ghc-mod
 	  :after (progn
 		   (autoload 'ghc-init "ghc" nil t)

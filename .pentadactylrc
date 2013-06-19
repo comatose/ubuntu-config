@@ -9,7 +9,7 @@ set guioptions+=n
 set showtabline=always
 "set tabclose=opener,previous,left,right
 "set tabopen=link:right,orphan:end,external:end
-set editor=emacs23
+set editor=emacs
 
 set passunknown=caret,output_multiline,!normal,base
 "pass some imprtant keys, doesn't work otherwise for somereason
@@ -20,6 +20,7 @@ nmap -builtin <C-w> <Pass>
 nmap -builtin <M-c> <Pass>
 nmap -builtin <M-v> <Pass>
 nmap -builtin <M-w> <Pass>
+nmap -builtin <C-f> </>
 
 set defsearch='google'
 
