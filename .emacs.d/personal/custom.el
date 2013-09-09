@@ -6,6 +6,8 @@
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(python-python-command "ipython")
+ '(python-shell-extra-pythonpaths (quote ("/mnt/workspace/dude-python/src")))
+ '(python-shell-interpreter "ipython3")
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

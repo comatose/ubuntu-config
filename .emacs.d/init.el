@@ -49,10 +49,6 @@ changes in this directory.  All Emacs Lisp files there are loaded automatically
 by Prelude.")
 (defvar prelude-vendor-dir (expand-file-name "vendor" prelude-dir)
   "This directory houses packages that are not yet available in ELPA (or MELPA).")
-(defvar prelude-snippets-dir (expand-file-name "snippets" prelude-dir)
-  "This folder houses additional yasnippet bundles distributed with Prelude.")
-(defvar prelude-personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
-  "This folder houses additional yasnippet bundles added by the users.")
 (defvar prelude-savefile-dir (expand-file-name "savefile" prelude-dir)
   "This folder stores all the automatically generated save/history-files.")
 (defvar prelude-modules-file (expand-file-name "prelude-modules.el" prelude-dir)
@@ -77,6 +73,10 @@ by Prelude.")
 (add-to-list 'load-path prelude-modules-dir)
 (add-to-list 'load-path prelude-vendor-dir)
 (prelude-add-subfolders-to-load-path prelude-vendor-dir)
+
+;; reduce the frequency of garbage collection by making it happen on
+;; each 50MB of allocated data (the default is on every 0.76MB)
+(setq gc-cons-threshold 50000000)
 
 ;; the core stuff
 (require 'prelude-packages)

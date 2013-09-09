@@ -36,6 +36,8 @@
         ropemacs
         ropemode
         pylookup
+        cython-mode
+
         ;; ipython
         ;; anything-ipython
 

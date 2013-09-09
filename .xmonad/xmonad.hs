@@ -60,6 +60,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Google-chrome"  --> doShift "2:web"
     , className =? "Firefox"        --> doShift "2:web"
+    , className =? "Thunderbird"    --> doShift "8"
     -- , className =? "Emacs"        --> doShift "3:emacs"
     , resource  =? "gpicview"       --> doFloat
     , resource  =? "kdesktop"       --> doIgnore
@@ -92,10 +93,11 @@ myLayout =
 --    Tall 1 (3/100) (1/2)
     Mirror (ResizableTall 3 (3/100) (1/2) [])
     ||| ResizableTall 0 (3/100) (1/2) []
---    ||| Mirror (Tall 1 (3/100) (1/2))
---    ||| spiral (5/7)
-    ||| tabbed shrinkText tabConfig)
+    -- ||| Mirror (Tall 1 (3/100) (1/2))
+    -- ||| spiral (5/7)
+    -- ||| tabbed shrinkText tabConfig
     )
+  )
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -142,6 +144,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 --  [ ((modMask .|. shiftMask, xK_Return),
   [ ((modMask, xK_t),
      spawn $ XMonad.terminal conf)
+
+  , ((modMask, xK_e),
+     spawn "emacsclient -c")
 
   , ((modMask, xK_a),
      sendMessage MirrorExpand)
@@ -365,10 +370,12 @@ myStartupHook = return ()
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
-  xscreensaver <- spawnPipe "xscreensaver"
-  nautilus <- spawnPipe "nautilus"
-  unclutter <- spawnPipe "unclutter -idle 5"
-  gs <- spawnPipe "gnome-settings-daemon"
+  _ <- spawnPipe "xscreensaver"
+  _ <- spawnPipe "nautilus"
+  _ <- spawnPipe "thunderbird"
+  _ <- spawnPipe "unclutter -idle 5"
+  _ <- spawnPipe "gnome-settings-daemon"
+  _ <- spawnPipe "emacs --daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = \s -> hPutStrLn xbar s >> hPutStrLn xbar2 s

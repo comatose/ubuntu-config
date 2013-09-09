@@ -29,6 +29,8 @@
 (disable-theme 'zenburn)
 (load-theme 'solarized-dark t)
 
+(yas-global-mode)
+
 (setq prelude-whitespace nil)
 ;; (whitespace-mode -1)
 
@@ -121,6 +123,10 @@
 ;; (global-set-key (kbd "M-f") 'forward-same-syntax)
 ;; (global-set-key (kbd "M-b") 'backward-same-syntax)
 ;; (global-set-key (kbd "M-d") 'kill-syntax)
+
+;; C++11 keywords
+(font-lock-add-keywords 'emacs-lisp-mode
+                        '(("nullptr" . font-lock-keyword-face)))
 
 ;; ========== Place Backup Files in Specific Directory ==========
 (setq make-backup-files t)
