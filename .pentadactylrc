@@ -149,3 +149,4 @@ map -group=user <Leader>H :to hoogle
 " map -group=user <Leader>v :b Voice<CR>
 map -group=user <Leader>r :b Google Reader<CR>
 
+colorscheme solarized-dark

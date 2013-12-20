@@ -1,3 +1,3 @@
 alias sudo="sudo "
 alias em="emacs -nw"
-alias synaptic="gksudo synaptic"
+alias rm="trash"

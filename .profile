@@ -21,29 +21,18 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# PATH="$PATH:$HOME/llvm-2.9/llvm-gcc-4.2-2.9-i686-linux/bin"
-
-# PATH="$HOME/llvm-2.9/llvm-gcc-4.2-2.9-i686-linux/bin:$HOME/llvm-2.9/tools/clang+llvm-2.9-i686-linux/bin:$PATH"export LANGUAGE="ko:en"
-export TERM="xterm-256color"
-
-export JAVA_HOME="/usr/lib/jvm/java-6-sun"
-export HADOOP_HOME="$HOME/hadoop"
-export J_HOME="$HOME/comatose/j602"
+# export GHC_HOME="$HOME/src/ghc-7.4.2"
 export CABAL_HOME="$HOME/.cabal"
-export GHC_HOME="$HOME/src/ghc-7.4.1"
 
-export PATH="$J_HOME/bin:$HADOOP_HOME/bin:$HOME/bin:$HOME/.xmonad/bin:$CABAL_HOME/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/lib:$CABAL_HOME/lib:$GHC_HOME/lib"
+export PATH="$HOME/.xmonad/bin:$CABAL_HOME/bin:$PATH"
+export LD_LIBRARY_PATH="$CABAL_HOME/lib:$HOME/lib:$LD_LIBRARY_PATH"
 
+export LANGUAGE="en"
 export LC_MESSAGES="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LC_COLLATE="en_US.UTF-8"
-export LANGUAGE="en"
 
-# xloadimage -fit -onroot -fullscreen Pictures/wallpaper.tif
-export PATH="$GHC_HOME/bin:$PATH"
-
-sshfs Boncheol@arrow: ~/remote/arrow
-
-xmodmap ~/.xmodmap
-
+lxkeymap -a
+setxkbmap -option ctrl:nocaps
+xcape &
+_byobu_sourced=1 . /usr/bin/byobu-launch

@@ -3,12 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
  '(column-number-mode t)
- '(python-python-command "ipython")
- '(python-shell-extra-pythonpaths (quote ("/mnt/workspace/dude-python/src")))
- '(python-shell-interpreter "ipython3")
- '(show-paren-mode t)
+ '(custom-safe-themes (quote ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
+ '(font-use-system-font t)
+ '(jabber-account-list (quote (("boncheol.gu@gmail.com" (:network-server . "talk.google.com") (:port . 5223) (:connection-type . ssl)))))
  '(size-indication-mode t)
  '(tool-bar-mode nil))
 (custom-set-faces

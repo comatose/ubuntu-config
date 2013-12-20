@@ -15,12 +15,14 @@ import           XMonad.Hooks.SetWMName
 import           XMonad.Layout.Fullscreen
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Spiral
 import           XMonad.Layout.Tabbed
 import           XMonad.Layout.ToggleLayouts
 import           XMonad.Layout.WorkspaceDir
 import           XMonad.Prompt
 import           XMonad.Prompt.RunOrRaise
 import qualified XMonad.StackSet             as W
+import           XMonad.Util.EZConfig        (additionalKeys)
 import           XMonad.Util.Run             (spawnPipe)
 
 
@@ -29,14 +31,14 @@ import           XMonad.Util.Run             (spawnPipe)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "gnome-terminal"
+myTerminal = "lxterminal -e byobu"
 
 
 ------------------------------------------------------------------------
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:remote","8", "9", "0", "-"]
+myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:docs"] ++ map show [6..9]
 
 
 ------------------------------------------------------------------------
@@ -60,8 +62,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Google-chrome"  --> doShift "2:web"
     , className =? "Firefox"        --> doShift "2:web"
-    , className =? "Thunderbird"    --> doShift "8"
-    -- , className =? "Emacs"        --> doShift "3:emacs"
+    , className =? "Evince"         --> doShift "5:docs"
     , resource  =? "gpicview"       --> doFloat
     , resource  =? "kdesktop"       --> doIgnore
     , className =? "MPlayer"        --> doFloat
@@ -93,11 +94,10 @@ myLayout =
 --    Tall 1 (3/100) (1/2)
     Mirror (ResizableTall 3 (3/100) (1/2) [])
     ||| ResizableTall 0 (3/100) (1/2) []
-    -- ||| Mirror (Tall 1 (3/100) (1/2))
-    -- ||| spiral (5/7)
-    -- ||| tabbed shrinkText tabConfig
+--    ||| Mirror (Tall 1 (3/100) (1/2))
+--    ||| spiral (5/7)
+    ||| tabbed shrinkText tabConfig)
     )
-  )
 
 ------------------------------------------------------------------------
 -- Colors and borders
@@ -145,8 +145,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask, xK_t),
      spawn $ XMonad.terminal conf)
 
-  , ((modMask, xK_e),
-     spawn "emacsclient -c")
+  , ((modMask .|. shiftMask, xK_t),
+     spawn "lxterminal -e byobu new")
 
   , ((modMask, xK_a),
      sendMessage MirrorExpand)
@@ -170,12 +170,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Use this to launch programs without a key binding.
   , ((modMask, xK_r),
      -- spawn "exe=`dmenu_path | yeganesh` && eval \"exec $exe\"")
-     spawn "dmenu_run -b -i -nb black -nf blue -fn '10x20'")
-     -- runOrRaisePrompt promptConfig)
+     -- spawn "dmenu_run -b -i -nb black -nf blue -fn '10x20'")
+    -- runOrRaisePrompt promptConfig)
+    spawn "gmrun")
 
   , ((modMask .|. shiftMask, xK_r),
-     spawn "gmrun")
-     -- changeDir promptConfig)
+     changeDir promptConfig)
 
   -- Take a screenshot in select mode.
   -- After pressing this key binding, click a window, or draw a rectangle with
@@ -292,19 +292,19 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- TODO: update this binding with avoidStruts, ((modMask, xK_b),
 
   -- Quit xmonad.
-  , ((modMask .|. shiftMask, xK_q),
-     io (exitWith ExitSuccess))
+  , ((modMask .|. shiftMask .|. controlMask, xK_q),
+     io exitSuccess)
 
-  -- -- Restart xmonad.
-  -- , ((modMask .|. shiftMask, xK_q),
-  --    restart "xmonad" True)
+  -- Restart xmonad.
+  , ((modMask .|. shiftMask, xK_q),
+     restart "xmonad" True)
   ]
   ++
 
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_5] ++ [xK_8, xK_9, xK_0, xK_minus])
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
 
@@ -369,18 +369,18 @@ myStartupHook = return ()
 --
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
-  xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
-  _ <- spawnPipe "xscreensaver"
-  _ <- spawnPipe "nautilus"
-  _ <- spawnPipe "thunderbird"
-  _ <- spawnPipe "unclutter -idle 5"
-  _ <- spawnPipe "gnome-settings-daemon"
-  _ <- spawnPipe "emacs --daemon"
+  -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
+  xscreensaver <- spawnPipe "xscreensaver -nosplash"
+  -- nautilus <- spawnPipe "nautilus"
+  unclutter <- spawnPipe "unclutter -idle 5"
+  -- gs <- spawnPipe "gnome-settings-daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = \s -> hPutStrLn xbar s >> hPutStrLn xbar2 s
+            ppOutput = hPutStrLn xbar
+            -- ppOutput = \s -> hPutStrLn xbar s >> hPutStrLn xbar2 s
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
+          , ppLayout = const ""
           , ppSep = "   "}
       , manageHook = manageDocks <+> myManageHook
       , startupHook = setWMName "LG3D"
@@ -417,12 +417,13 @@ defaults = defaultConfig {
 
 promptConfig = defaultXPConfig
              { font = "xft:Consolas:12"
+             -- { font = "xft:NanumGothicCoding:12"
              , bgColor = "black"
 --             , fgColor = solbase1
 --             , bgHLight = solyellow
 --             , fgHLight = solbase02
              , promptBorderWidth = 0
-             , height = 35
+             , height = 28
              , historyFilter = nub
              , showCompletionOnTab = False
              }
