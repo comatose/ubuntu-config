@@ -31,7 +31,7 @@ import           XMonad.Util.Run             (spawnPipe)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "lxterminal -e 'byobu new'"
+myTerminal = "gnome-terminal -e 'byobu new'"
 
 
 ------------------------------------------------------------------------
@@ -146,7 +146,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn $ XMonad.terminal conf)
 
   , ((modMask .|. shiftMask, xK_t),
-     spawn "lxterminal -e byobu")
+     spawn "gnome-terminal -e byobu")
+
+  , ((modMask, xK_e),
+     spawn "emacsclient -c")
 
   , ((modMask, xK_a),
      sendMessage MirrorExpand)
@@ -370,10 +373,11 @@ myStartupHook = return ()
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
-  xscreensaver <- spawnPipe "xscreensaver -nosplash"
-  -- nautilus <- spawnPipe "nautilus"
-  unclutter <- spawnPipe "unclutter -idle 5"
-  -- gs <- spawnPipe "gnome-settings-daemon"
+  _ <- spawnPipe "xscreensaver -nosplash"
+  _ <- spawnPipe "nautilus"
+  _ <- spawnPipe "unclutter -idle 5"
+  _ <- spawnPipe "gnome-settings-daemon"
+  _ <- spawnPipe "emacs --daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xbar
