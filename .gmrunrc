@@ -16,6 +16,8 @@ History = 256
 # Shows last history line selected when invoked
 ShowLast = 1
 
+Selected = 1
+
 # Show files starting with '.'
 # Default is 0 (off), set it to 1 if you want "hidden" files to show up
 # in the completion window
@@ -31,6 +33,7 @@ ShowDotFiles = 0
 #   - %s gets replaced with "//www.google.com".  This is useful for URL-s
 #     like "man:printf" --> %s will get replaced with "printf"
 URL_http = x-www-browser '%u'
+URL_ssh = ${Terminal} -e 'ssh -Y %s'
 URL_mailto = mozilla -remote "mailto(%s)"
 URL_man = ${Terminal} -e 'man %s'
 URL_info = ${Terminal} -e 'info %s'

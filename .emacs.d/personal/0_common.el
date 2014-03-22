@@ -10,6 +10,7 @@
                             framemove
                             switch-window
                             company
+                            w3m
                             ))
 
 (add-hook 'after-init-hook

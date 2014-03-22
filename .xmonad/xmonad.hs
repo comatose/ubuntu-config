@@ -31,7 +31,7 @@ import           XMonad.Util.Run             (spawnPipe)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "lxterminal -e byobu"
+myTerminal = "lxterminal -e 'byobu new'"
 
 
 ------------------------------------------------------------------------
@@ -63,7 +63,7 @@ myManageHook = composeAll
     , className =? "Google-chrome"  --> doShift "2:web"
     , className =? "Firefox"        --> doShift "2:web"
     , className =? "Evince"         --> doShift "5:docs"
-    , resource  =? "gpicview"       --> doFloat
+    -- , resource  =? "gpicview"       --> doFloat
     , resource  =? "kdesktop"       --> doIgnore
     , className =? "MPlayer"        --> doFloat
     , resource  =? "skype"          --> doFloat
@@ -146,7 +146,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn $ XMonad.terminal conf)
 
   , ((modMask .|. shiftMask, xK_t),
-     spawn "lxterminal -e byobu new")
+     spawn "lxterminal -e byobu")
 
   , ((modMask, xK_a),
      sendMessage MirrorExpand)
@@ -304,7 +304,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+      | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_5] ++ [xK_8, xK_9, xK_0, xK_minus])
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
 

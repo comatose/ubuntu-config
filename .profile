@@ -34,5 +34,5 @@ export LC_COLLATE="en_US.UTF-8"
 
 lxkeymap -a
 setxkbmap -option ctrl:nocaps
-xcape &
+xcape
 _byobu_sourced=1 . /usr/bin/byobu-launch
