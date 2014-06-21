@@ -1,5 +1,9 @@
 (prelude-require-packages '(
                             ecb
+                            cmake-mode
+                            cmake-project
+                            company-cmake
+                            rtags
                             ))
 
 ;; C++11 keywords
@@ -88,6 +92,8 @@
 
   (setq gdb-many-windows t)
   (setq gdb-show-threads-by-default t)
+
+  (setq flycheck-clang-language-standard "c++11")
   )
 
 (add-hook 'c-mode-common-hook 'alexott/c-mode-cedet-hook)
@@ -99,6 +105,8 @@
 ;; EDE
 (global-ede-mode 1)
 (ede-enable-generic-projects)
+
+(rtags-enable-standard-keybindings c-mode-base-map)
 
 ;; Setup JAVA....
 ;; (require 'cedet-java)

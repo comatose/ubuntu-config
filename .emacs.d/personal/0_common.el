@@ -11,6 +11,9 @@
                             switch-window
                             company
                             w3m
+                            magit-svn
+                            ggtags
+                            ag
                             ))
 
 (add-hook 'after-init-hook
