@@ -12,7 +12,7 @@
                             company
                             w3m
                             magit-svn
-                            ggtags
+                            ;; ggtags
                             ag
                             ))
 
@@ -81,7 +81,27 @@
 ;; (setq prelude-whitespace nil)   ;; (whitespace-mode -1)
 (setq prelude-flyspell nil)     ;; (flyspell-mode -1)
 
+(defun xftp (&optional frame)
+  "Return t if FRAME support XFT font backend."
+  (let ((xft-supported))
+    (mapc (lambda (x) (if (eq x 'xft) (setq xft-supported t)))
+          (frame-parameter frame 'font-backend))
+    xft-supported))
 
+(when (xftp)
+  (let ((fontset "fontset-default"))
+    ;; (set-default-font "Terminus 10")
+    ;; (set-face-font 'default "Terminus 10")
+    ;; (set-default-font "Terminus")
+    ;; (set-face-font 'default "Terminus")
+    ;; (set-fontset-font fontset 'latin
+    ;; '("NanumGothicCoding" . "unicode-bmp"))
+    (set-fontset-font fontset 'hangul
+                      '("NanumGothicCoding" . "unicode-bmp"))
+    (set-face-attribute 'default nil
+                        :font fontset
+                        :height 120)
+    ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; reserved for future uses
 
