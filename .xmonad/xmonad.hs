@@ -31,7 +31,8 @@ import           XMonad.Util.Run             (spawnPipe)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "gnome-terminal -e 'byobu new'"
+-- myTerminal = "xfce4-terminal -e 'byobu new'"
+myTerminal = "xfce4-terminal"
 
 
 ------------------------------------------------------------------------
@@ -146,7 +147,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn $ XMonad.terminal conf)
 
   , ((modMask .|. shiftMask, xK_t),
-     spawn "gnome-terminal -e byobu")
+     spawn "xfce4-terminal")
+     -- spawn "xfce4-terminal -e byobu")
 
   , ((modMask, xK_e),
      spawn "emacsclient -c")
