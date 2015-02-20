@@ -31,7 +31,8 @@ import           XMonad.Util.Run             (spawnPipe)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "lxterminal -e 'byobu new'"
+myTerminal = "urxvt"
+-- myTerminal = "xterm -e 'byobu new'"
 
 
 ------------------------------------------------------------------------
@@ -304,7 +305,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- mod-[1..9], Switch to workspace N
   -- mod-shift-[1..9], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_5] ++ [xK_8, xK_9, xK_0, xK_minus])
+      | (i, k) <- zip (XMonad.workspaces conf) [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0, xK_minus, xK_equal, xK_BackSpace]
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
 
@@ -369,10 +370,11 @@ myStartupHook = return ()
 --
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+  _ <- spawn "bash ~/.xmonad/xmonadrc"
   -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
-  xscreensaver <- spawnPipe "xscreensaver -nosplash"
+  -- xscreensaver <- spawnPipe "xscreensaver -nosplash"
   -- nautilus <- spawnPipe "nautilus"
-  unclutter <- spawnPipe "unclutter -idle 5"
+  -- unclutter <- spawnPipe "unclutter -idle 5"
   -- gs <- spawnPipe "gnome-settings-daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {

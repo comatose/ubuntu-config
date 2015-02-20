@@ -1,0 +1,5 @@
+[[ -f $HOME/.Xresources ]] && xrdb -merge $HOME/.Xresources
+
+xscreensaver -nosplash
+
+unclutter -idle 5
