@@ -32,8 +32,8 @@ import           XMonad.Util.Run             (spawnPipe)
 -- certain contrib modules.
 --
 -- myTerminal = "xfce4-terminal -e 'byobu new'"
-myTerminal = "xfce4-terminal"
-
+-- myTerminal = "xfce4-terminal"
+myTerminal = "urxvt"
 
 ------------------------------------------------------------------------
 -- Workspaces
@@ -147,7 +147,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn $ XMonad.terminal conf)
 
   , ((modMask .|. shiftMask, xK_t),
-     spawn "xfce4-terminal")
+     spawn myTerminal)
+     -- spawn "xfce4-terminal")
      -- spawn "xfce4-terminal -e byobu")
 
   , ((modMask, xK_e),
@@ -375,11 +376,12 @@ myStartupHook = return ()
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
   -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
-  _ <- spawnPipe "xscreensaver -nosplash"
-  _ <- spawnPipe "nautilus"
+  -- _ <- spawnPipe "xscreensaver -nosplash"
+  -- _ <- spawnPipe "nautilus"
   _ <- spawnPipe "unclutter -idle 5"
-  _ <- spawnPipe "gnome-settings-daemon"
-  _ <- spawnPipe "emacs --daemon"
+  -- _ <- spawnPipe "gnome-settings-daemon"
+  _ <- spawnPipe "xrdb ~/.Xresources"
+  -- _ <- spawnPipe "emacs --daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xbar

@@ -27,14 +27,15 @@ export CABAL_HOME="$HOME/.cabal"
 export PATH="$HOME/.xmonad/bin:$CABAL_HOME/bin:$PATH"
 export LD_LIBRARY_PATH="$CABAL_HOME/lib:$HOME/lib:$LD_LIBRARY_PATH"
 
-# export LANGUAGE="en"
-# export LC_MESSAGES="en_US.UTF-8"
-# export LC_CTYPE="en_US.UTF-8"
-# export LC_COLLATE="en_US.UTF-8"
+export LANGUAGE="en"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_COLLATE="en_US.UTF-8"
 
-# lxkeymap -a
-# setxkbmap -option ctrl:nocaps
-# _byobu_sourced=1 . /usr/bin/byobu-launch
+#lxkeymap -a
+if [ $(which setxkbmap) ] ; then
+    setxkbmap -option ctrl:nocaps
+fi
 
 if [ $(which xcape) ] ; then
     xcape
@@ -43,3 +44,7 @@ fi
 if [ $(which rdm) ] ; then
     rdm &
 fi
+
+export EDITOR="emacs"
+
+#_byobu_sourced=1 . /usr/bin/byobu-launch
