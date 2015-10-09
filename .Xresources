@@ -349,3 +349,13 @@ URxvt.matcher.button: 1
 URxvt.colorUL: #4682B4
 URxvt.keysym.C-Delete: perl:matcher:last
 URxvt.keysym.M-Delete: perl:matcher:list
+
+! Xft settings ---------------------------------------------------------------
+
+Xft.dpi:        98
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.autohint:   false
+Xft.hintstyle:  hintfull
+Xft.lcdfilter:  lcddefault
