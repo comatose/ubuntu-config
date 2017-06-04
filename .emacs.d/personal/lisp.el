@@ -1,6 +1,6 @@
 (prelude-require-packages '(
-                            geiser
-                            ac-geiser
-                            slime
-                            ac-slime
+                            ;; geiser
+                            ;; ac-geiser
+                            ;; slime
+                            ;; ac-slime
                             ))
