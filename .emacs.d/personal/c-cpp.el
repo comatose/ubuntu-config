@@ -1,9 +1,7 @@
 (prelude-require-packages '(
                             cmake-mode
-                            ;; rtags
-                            ;; flycheck-rtags
-                            ;; company-rtags
                             google-c-style
+                            clang-format
                             ))
 
 (when (file-exists-p "~/src/rtags/build/src")
