@@ -17,6 +17,7 @@
 
 (global-company-mode)
 (rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
+(setq rtags-tramp-enabled t)
 
 (defun comatose/c-mode-cedet-hook ()
   (google-set-c-style)
