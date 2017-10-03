@@ -142,9 +142,9 @@ URxvt*depth: 32
 ! URxvt*borderColor: colour
 
 ! Select the fonts to be used. This is a comma separated list of font names that are checked in order when trying to find glyphs for characters. The first font defines the cell size for
-URxvt*font: xft:nanumgothiccoding:size=12
-URxvt*boldFont: xft:nanumgothiccoding:bold:size=12
-URxvt*italicFont: xft:nanumgothiccoding:italic:size=12
+URxvt*font: xft:nanumgothiccoding:size=13
+URxvt*boldFont: xft:nanumgothiccoding:bold:size=13
+URxvt*italicFont: xft:nanumgothiccoding:italic:size=13
 ! The font list to use for displaying bold, italic or bold italic characters, respectively.
 ! URxvt*boldItalicFont: fontlist
 
@@ -349,3 +349,13 @@ URxvt.matcher.button: 1
 URxvt.colorUL: #4682B4
 URxvt.keysym.C-Delete: perl:matcher:last
 URxvt.keysym.M-Delete: perl:matcher:list
+
+! Xft settings ---------------------------------------------------------------
+
+Xft.dpi:        98
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.autohint:   false
+Xft.hintstyle:  hintfull
+Xft.lcdfilter:  lcddefault

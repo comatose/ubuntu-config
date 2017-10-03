@@ -1,8 +1,5 @@
 (prelude-require-packages '(
                             cmake-mode
-                            ;; rtags
-                            ;; flycheck-rtags
-                            ;; company-rtags
                             google-c-style
                             ))
 
