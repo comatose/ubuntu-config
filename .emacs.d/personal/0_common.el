@@ -39,7 +39,7 @@
             (require 'company)
             (setq company-idle-delay nil)
             (global-company-mode t)
-            (global-set-key (kbd "M-<return>") 'company-complete-common)
+            (global-set-key (kbd "M-RET") 'company-complete-common)
             )
           t)
 
