@@ -1,18 +1,16 @@
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ("marmalade" . "http://marmalade-repo.org/packages/")
+;;                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (prelude-require-packages '(
                             color-theme-sanityinc-solarized
                             yasnippet
-                            auto-complete
                             iedit
                             framemove
                             switch-window
                             company
                             w3m
                             magit-svn
-                            ;; ggtags
                             ag
                             ))
 
@@ -23,12 +21,6 @@
             (load-theme 'sanityinc-solarized-dark)
 
             (yas-global-mode 1)
-
-            (require 'auto-complete)
-            (require 'auto-complete-config)
-            (ac-config-default)
-            (setq ac-auto-start nil)
-            (define-key ac-mode-map (kbd "M-<return>") 'auto-complete)
 
             (require 'iedit)
 
@@ -47,12 +39,12 @@
             (require 'company)
             (setq company-idle-delay nil)
             (global-company-mode t)
-            (global-set-key (kbd "C-<return>") 'company-complete-common)
+            (global-set-key (kbd "M-<return>") 'company-complete-common)
             )
           t)
 
 ;; cd /usr/src; sudo apt-get source emacs24
-(setq find-function-C-source-directory "/usr/src/emacs24-24.2+1/src")
+;; (setq find-function-C-source-directory "/usr/src/emacs24-24.2+1/src")
 
 (set-frame-font "NanumGothicCoding-12")
 
