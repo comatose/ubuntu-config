@@ -1,7 +1,7 @@
 (prelude-require-packages '(
+                            cmake-ide
                             cmake-mode
                             google-c-style
-                            clang-format
                             ))
 
 (when (file-exists-p "~/src/rtags/build/src")
@@ -11,11 +11,10 @@
   (load-file "~/src/rtags/build/src/helm-rtags.el")
   )
 
-;; C++11 keywords
-(font-lock-add-keywords 'c-common-mode
-                        '(("nullptr" . font-lock-keyword-face)))
+(require 'rtags)
+(cmake-ide-setup)
+(global-set-key (kbd "C-c m") 'cmake-ide-compile)
 
-(global-company-mode)
 (rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
 (setq rtags-tramp-enabled t)
 
@@ -26,7 +25,7 @@
   (subword-mode 1)
   (global-cwarn-mode 1)
 
-  (define-key c-mode-base-map "\C-j" 'c-context-line-break)
+  ;; (define-key c-mode-base-map "\C-j" 'c-context-line-break)
   (flyspell-mode -1)
 
   (setq gdb-many-windows t)
@@ -41,9 +40,10 @@
   (push 'company-rtags company-backends)
   (setq rtags-display-result-backend 'helm)
 
-  (require 'flycheck-rtags)
-  (flycheck-select-checker 'rtags)
-  (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-  (setq-local flycheck-check-syntax-automatically nil))
+  ;; (require 'flycheck-rtags)
+  ;; (flycheck-select-checker 'rtags)
+  ;; (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  ;; (setq-local flycheck-check-syntax-automatically nil)
+  )
 
 (add-hook 'prelude-c-mode-common-hook 'comatose/c-mode-cedet-hook 1)
