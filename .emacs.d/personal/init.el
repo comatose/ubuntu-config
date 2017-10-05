@@ -30,7 +30,7 @@
          flycheck-irony flycheck-pyflakes
          google-c-style helm helm-core
          helm-flycheck helm-ls-git helm-ls-hg
-         hungry-delete irony
+         hungry-delete iedit irony
          let-alist levenshtein magit markdown-mode pkg-info
          popup seq solarized-theme vlf web-mode
          window-numbering writegood-mode yasnippet))
@@ -72,13 +72,7 @@
 ;; recompiling the directory using M-x byte-force-recompile
 ;; Require flycheck to be present
 (require 'flycheck)
-;; Force flycheck to always use c++11 support. We use
-;; the clang language backend so this is set to clang
-(add-hook 'c++-mode-hook
-          (lambda ()
-            (setq flycheck-clang-language-standard "gnu++1z")
-            )
-          )
+
 ;; Turn flycheck on everywhere
 (global-flycheck-mode)
 
@@ -160,13 +154,9 @@
 (global-semantic-idle-scheduler-mode 1)
 (semantic-mode 1)
 
-;; Setup irony-mode to load in c-modes
 (require 'irony)
 (require 'company-irony-c-headers)
 (require 'cl)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
 
 ;; irony-mode hook that is called when irony is triggered
 (defun my-irony-mode-hook ()
@@ -308,17 +298,6 @@
 ;; Turn on whitespace mode globally.
 (global-whitespace-mode 1)
 
-;; Enable Google style things
-;; This prevents the extra two spaces in a namespace that Emacs
-;; otherwise wants to put... Gawd!
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-
-;; Autoindent using google style guide
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
-;; Enable hide/show of code blocks
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Clang-format
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -342,6 +321,50 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (writegood-mode)))
+
+(defun comatose/c-mode-hook ()
+  ;; Enable Google style things
+  ;; This prevents the extra two spaces in a namespace that Emacs
+  ;; otherwise wants to put... Gawd!
+  (google-set-c-style)
+
+  ;; Autoindent using google style guide
+  (google-make-newline-indent)
+
+  ;; Enable hide/show of code blocks
+  (hs-minor-mode)
+  
+  ;; (c-toggle-hungry-state 1)
+  ;; (subword-mode 1)
+  ;; (global-cwarn-mode 1)
+
+  ;; (define-key c-mode-base-map "\C-j" 'c-context-line-break)
+  (flyspell-mode -1)
+  (iedit-mode)
+
+  (irony-mode)
+
+  (setq gdb-many-windows t)
+  (setq gdb-show-threads-by-default t)
+
+  ;; Force flycheck to always use c++1z support. We use
+  ;; the clang language backend so this is set to clang
+  (setq flycheck-clang-language-standard "c++1z")
+
+  ;; (rtags-start-process-unless-running)
+  ;; (setq rtags-autostart-diagnostics t)
+  ;; (rtags-diagnostics)
+  ;; (setq rtags-completions-enabled t)
+  ;; (push 'company-rtags company-backends)
+  ;; (setq rtags-display-result-backend 'helm)
+
+  ;; (require 'flycheck-rtags)
+  ;; (flycheck-select-checker 'rtags)
+  ;; (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+  ;; (setq-local flycheck-check-syntax-automatically nil)
+  )
+
+(add-hook 'prelude-c-mode-common-hook 'comatose/c-mode-hook 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Tweaks
@@ -473,8 +496,8 @@
 ;; the font color under Menu Bar->Options->Appearance->Font For...
 ;; and then setting "Adopt Face and Frame Parameter as Frame Default"
 (when window-system
-    (load-theme 'sanityinc-solarized-dark)
-)
+  (load-theme 'solarized-dark)
+  )
 ;; (if window-system
 ;;     (load-theme 'deeper-blue t)
 ;;   (load-theme 'wheatgrass t))
