@@ -84,6 +84,8 @@
 (rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
 (setq rtags-tramp-enabled t)
 
+(require 'iedit)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Setup cmake-ide
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -340,7 +342,6 @@
 
   ;; (define-key c-mode-base-map "\C-j" 'c-context-line-break)
   (flyspell-mode -1)
-  (iedit-mode)
 
   (irony-mode)
 
