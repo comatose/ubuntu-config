@@ -539,11 +539,13 @@
         '((top . 0) (left . 0) ;; position
           (width . 110) (height . 90) ;; size
           ))
-  ;; Enable line numbers on the LHS
-  (global-linum-mode 1)
   ;; Set the font to size 9 (90/10).
   (set-face-attribute 'default nil :height my-font-size)
   )
+
+;; Enable line numbers on the LHS
+(setq linum-format "%d ")
+(global-linum-mode 1)
 
 (setq-default indicate-empty-lines t)
 (when (not indicate-empty-lines)
