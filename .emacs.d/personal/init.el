@@ -543,8 +543,10 @@
   (set-face-attribute 'default nil :height my-font-size)
   )
 
+(unless (display-graphic-p)
+  (setq linum-format "%d "))
+
 ;; Enable line numbers on the LHS
-(setq linum-format "%d ")
 (global-linum-mode 1)
 
 (setq-default indicate-empty-lines t)
