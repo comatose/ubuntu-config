@@ -1,10 +1,10 @@
 background "#000000"
 decorations none
 dockapp_mode none
-geometry 5x1-0+0
+geometry 4x1-0+0
 grow_gravity NE
 icon_gravity NE
-icon_size 20
+icon_size 25
 kludges force_icons_size
 max_geometry 5x1-0-10
 no_shrink false

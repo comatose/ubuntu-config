@@ -4,13 +4,14 @@
 
 -- This is setup for dual 1920x1080 monitors, with the right monitor as primary
 Config {
-    font = "-misc-fixed-*-*-*-*-18-*-*-*-*-*-*-*",
---    font = "xft:Fixed-12",
+    -- font = "-misc-fixed-*-*-*-*-18-*-*-*-*-*-*-*",
+    font = "xft:NanumGothicCoding:size=11:antialias=true"
     bgColor = "#000000",
     fgColor = "#ffffff",
-    -- position = Static { xpos = 0, ypos = 0, width = 1280, height = 25 },
+    position = Static { xpos = 0, ypos = 0, width = 1500, height = 25 },
 --    position = Static { xpos = 1920, ypos = 0, width = 1800, height = 16 },
-    lowerOnStart = True,
+    -- lowerOnStart = True,
+    overrideRedirect = False,
     commands = [
         Run Weather "RKSM" ["-t","<station>: <tempC>C <skyCondition>","-L","64","-H","77","-n","#CEFFAC","-h","#FFB6B0","-l","#96CBFE"] 36000,
         Run MultiCpu ["-t","Cpu: <total0> <total1>","-L","30","-H","60","-h","#FFB6B0","-l","#CEFFAC","-n","#FFFFCC","-w","3"] 10,
@@ -25,5 +26,5 @@ Config {
     sepChar = "%",
     alignSep = "}{",
     -- template = "%StdinReader% }{ %multicpu%  %memory%  %wlan0%  <fc=#FFFFCC>%date%</fc>  %RKSM% %battery%    "
-    template = "%StdinReader% }{ %multicpu%  %memory%  %wlan0%  <fc=#FFFFCC>%date%</fc>  %battery%           "
+    template = "%StdinReader% }{ %multicpu%  %memory%  %wlan0%  <fc=#FFFFCC>%date%</fc>  %battery%"
 }
