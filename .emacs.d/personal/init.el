@@ -24,7 +24,7 @@
 ;; Set packages to install
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (prelude-require-packages
- '(async auctex auto-complete clang-format cmake-ide
+ '(ace-window async auctex auto-complete clang-format cmake-ide
          cmake-mode company company-irony
          company-irony-c-headers dash epl flycheck
          flycheck-irony flycheck-pyflakes
@@ -32,7 +32,7 @@
          helm-flycheck helm-ls-git helm-ls-hg
          hungry-delete irony
          let-alist levenshtein magit markdown-mode pkg-info
-         popup seq solarized-theme vlf web-mode
+         popup seq solarized-theme switch-window vlf web-mode
          window-numbering writegood-mode yasnippet))
 
 (when (file-exists-p "~/src/rtags/build/src")
@@ -89,6 +89,34 @@
 (require 'rtags)
 (rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
 (setq rtags-tramp-enabled t)
+
+;; ace-window
+(global-set-key (kbd "M-p") 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(setq aw-dispatch-always t)
+(defvar aw-dispatch-alist
+  '((?0 aw-delete-window " Ace - Delete Window")
+    (?m aw-swap-window " Ace - Swap Window")
+    (?o aw-flip-window)
+    (?c aw-split-window-fair " Ace - Split Fair Window")
+    (?2 aw-split-window-vert " Ace - Split Vert Window")
+    (?3 aw-split-window-horz " Ace - Split Horz Window")
+    (?1 delete-other-windows " Ace - Maximize Window")
+    (?1 delete-other-windows)
+    (?b balance-windows))
+  "List of actions for `aw-dispatch-default'.")
+
+;; switch-window
+(require 'switch-window)
+(global-set-key (kbd "C-x o") 'switch-window)
+(global-set-key (kbd "C-x 1") 'switch-window-then-maximize)
+(global-set-key (kbd "C-x 2") 'switch-window-then-split-below)
+(global-set-key (kbd "C-x 3") 'switch-window-then-split-right)
+(global-set-key (kbd "C-x 0") 'switch-window-then-delete)
+
+(setq switch-window-shortcut-style 'qwerty)
+(setq switch-window-qwerty-shortcuts
+      '("a" "s" "d" "f" "j" "k" "l" ";" "w" "e" "i" "o"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Setup cmake-ide
