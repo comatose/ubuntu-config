@@ -79,6 +79,8 @@
 ;; Use flycheck-pyflakes for python. Seems to work a little better.
 (require 'flycheck-pyflakes)
 
+(flyspell-mode -1)
+
 ;; Load rtags and start the cmake-ide-setup process
 (require 'rtags)
 (rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
@@ -370,7 +372,6 @@
   ;; (global-cwarn-mode 1)
 
   ;; (define-key c-mode-base-map "\C-j" 'c-context-line-break)
-  (flyspell-mode -1)
 
   (irony-mode)
 
