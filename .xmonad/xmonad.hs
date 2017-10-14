@@ -67,7 +67,7 @@ myManageHook = composeAll
     -- , resource  =? "gpicview"       --> doFloat
     , resource  =? "kdesktop"       --> doIgnore
     , className =? "MPlayer"        --> doFloat
-    , resource  =? "skype"          --> doFloat
+    -- , resource  =? "slack"          --> doFloat
     -- , className =? "VirtualBox"     --> doShift "4:home"
     -- , className =? "Xchat"          --> doShift "5:vm"
     , className =? "Nabi"           --> doShift "9"
@@ -283,8 +283,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      sendMessage Expand)
 
   -- Push window back into tiling.
-  -- , ((modMask, xK_t),
-  --    withFocused $ windows . W.sink)
+  , ((modMask, xK_s),
+     withFocused $ windows . W.sink)
 
   -- Increment the number of windows in the master area.
   , ((modMask, xK_comma),
@@ -375,6 +375,8 @@ myStartupHook = return ()
 --
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+  _ <- spawnPipe "stalonetray"
+  _ <- spawnPipe "nm-applet --sm-disable"
   -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
   -- _ <- spawnPipe "xscreensaver -nosplash"
   -- _ <- spawnPipe "nautilus"
