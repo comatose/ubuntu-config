@@ -32,14 +32,14 @@ import           XMonad.Util.Run             (spawnPipe)
 -- certain contrib modules.
 --
 -- myTerminal = "xfce4-terminal -e 'byobu new'"
--- myTerminal = "xfce4-terminal"
-myTerminal = "urxvt"
+myTerminal = "xfce4-terminal"
+-- myTerminal = "urxvt"
 
 ------------------------------------------------------------------------
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:docs"] ++ map show [6..9]
+myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:docs"] ++ map show [6..9] ++ ["0", "-", "=:remote"]
 
 
 ------------------------------------------------------------------------
@@ -307,10 +307,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ]
   ++
 
-  -- mod-[1..9], Switch to workspace N
-  -- mod-shift-[1..9], Move client to workspace N
+  -- mod-[1..=], Switch to workspace N
+  -- mod-shift-[1..=], Move client to workspace N
   [((m .|. modMask, k), windows $ f i)
-      | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_5] ++ [xK_8, xK_9, xK_0, xK_minus])
+      | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0, xK_minus, xK_equal])
       , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
 
@@ -384,6 +384,7 @@ main = do
   -- _ <- spawnPipe "gnome-settings-daemon"
   _ <- spawnPipe "xrdb ~/.Xresources"
   -- _ <- spawnPipe "emacs --daemon"
+  -- _ <- spawnPipe "albert"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xbar
