@@ -35,13 +35,6 @@
          popup seq solarized-theme switch-window vlf web-mode
          window-numbering writegood-mode yasnippet))
 
-(when (file-exists-p "~/src/rtags/build/src")
-  (load-file "~/src/rtags/build/src/rtags.el")
-  (load-file "~/src/rtags/build/src/company-rtags.el")
-  (load-file "~/src/rtags/build/src/flycheck-rtags.el")
-  (load-file "~/src/rtags/build/src/helm-rtags.el")
-  )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configure flycheck
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -81,10 +74,7 @@
 
 (flyspell-mode -1)
 
-;; Load rtags and start the cmake-ide-setup process
-(require 'rtags)
-(rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
-(setq rtags-tramp-enabled t)
+(transient-mark-mode -1)
 
 ;; ace-window
 (global-set-key (kbd "M-p") 'ace-window)
@@ -117,6 +107,28 @@
 ;; iedit-mode
 (require 'iedit)
 
+(when (file-exists-p "~/src/rtags/build/src")
+  (load-file "~/src/rtags/build/src/rtags.el")
+  (load-file "~/src/rtags/build/src/company-rtags.el")
+  (load-file "~/src/rtags/build/src/flycheck-rtags.el")
+  (load-file "~/src/rtags/build/src/helm-rtags.el")
+
+  ;; Load rtags and start the cmake-ide-setup process
+  (require 'rtags)
+  (rtags-enable-standard-keybindings c-mode-base-map "C-x r ")
+  (setq rtags-tramp-enabled t)
+
+  ;; Set rtags to enable completions and use the standard keybindings.
+  ;; A list of the keybindings can be found at:
+  ;; http://syamajala.github.io/c-ide.html
+  (setq rtags-autostart-diagnostics t)
+  (rtags-diagnostics)
+  (setq rtags-completions-enabled t)
+  (rtags-enable-standard-keybindings)
+
+  (setq rtags-use-helm t)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Setup cmake-ide
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -126,14 +138,6 @@
 (setq cmake-ide-flags-c++ (append '("-std=c++1z")))
 ;; We want to be able to compile with a keyboard shortcut
 (global-set-key (kbd "C-c m") 'cmake-ide-compile)
-
-;; Set rtags to enable completions and use the standard keybindings.
-;; A list of the keybindings can be found at:
-;; http://syamajala.github.io/c-ide.html
-(setq rtags-autostart-diagnostics t)
-(rtags-diagnostics)
-(setq rtags-completions-enabled t)
-(rtags-enable-standard-keybindings)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Set up helm
@@ -168,7 +172,6 @@
  helm-imenu-fuzzy-match    t)
 ;; Have helm automaticaly resize the window
 (helm-autoresize-mode 1)
-(setq rtags-use-helm t)
 (require 'helm-flycheck) ;; Not necessary if using ELPA package
 (eval-after-load 'flycheck
   '(define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
@@ -177,7 +180,7 @@
 ;; Set up code completion with company and irony
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'company)
-(require 'company-rtags)
+;; (require 'company-rtags)
 (global-company-mode)
 
 ;; Enable semantics mode for auto-completion
@@ -366,7 +369,7 @@
 
   ;; Enable hide/show of code blocks
   (hs-minor-mode)
-  
+
   ;; (c-toggle-hungry-state 1)
   ;; (subword-mode 1)
   ;; (global-cwarn-mode 1)
