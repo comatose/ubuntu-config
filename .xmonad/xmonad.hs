@@ -56,8 +56,8 @@ myWorkspaces = ["1:term","2:web","3:emacs","4:home","5:docs"] ++ map show [6..9]
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
-    [ className =? "Conkeror"       --> doShift "2:web"
+myManageHook = manageDocks <+> manageHook defaultConfig <+> composeAll
+    [ className =? "vivaldi-stable"       --> doShift "2:web"
     , resource  =? "desktop_window" --> doIgnore
     , className =? "Galculator"     --> doFloat
     , className =? "Gimp"           --> doFloat
@@ -70,8 +70,8 @@ myManageHook = composeAll
     -- , resource  =? "slack"          --> doFloat
     -- , className =? "VirtualBox"     --> doShift "4:home"
     -- , className =? "Xchat"          --> doShift "5:vm"
-    , className =? "Nabi"           --> doShift "9"
-    , className =? "Nautilus"       --> doShift "4:home"
+    -- , className =? "Nabi"           --> doShift "9"
+    , className =? "thunar"       --> doShift "4:home"
     -- , className =? "Unity-2d-panel"    --> doIgnore
     -- , className =? "Unity-2d-launcher" --> doIgnore
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)]
@@ -375,30 +375,24 @@ myStartupHook = return ()
 --
 main = do
   xbar <- spawnPipe "xmobar ~/.xmonad/xmobar.hs"
+  -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
   _ <- spawnPipe "stalonetray"
   _ <- spawnPipe "nm-applet --sm-disable"
-  -- xbar2 <- spawnPipe "xmobar ~/.xmonad/xmobar2.hs"
-  -- _ <- spawnPipe "xscreensaver -nosplash"
-  -- _ <- spawnPipe "nautilus"
+  _ <- spawnPipe "blueman-applet"
+  _ <- spawnPipe "xscreensaver -nosplash"
   _ <- spawnPipe "unclutter -idle 5"
-  -- _ <- spawnPipe "gnome-settings-daemon"
   _ <- spawnPipe "xrdb ~/.Xresources"
   _ <- spawnPipe "xfce4-volumed"
-  -- _ <- spawnPipe "emacs --daemon"
+  _ <- spawnPipe "xfce4-power-manager"
+  _ <- spawnPipe "xfsettingsd"
   xmonad $ defaults {
-      manageHook         = manageDocks <+> manageHook defaultConfig
-      , layoutHook         = avoidStruts  $ layoutHook defaultConfig
-      -- this must be in this order, docksEventHook must be last
-      , handleEventHook    = handleEventHook defaultConfig <+> docksEventHook
-      , logHook = dynamicLogWithPP $ xmobarPP {
+      logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xbar
             -- ppOutput = \s -> hPutStrLn xbar s >> hPutStrLn xbar2 s
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
           , ppLayout = const ""
           , ppSep = "   "}
-      -- , manageHook = manageDocks <+> myManageHook
-      -- , startupHook = setWMName "LG3D"
   }
 
 
@@ -428,7 +422,8 @@ defaults = defaultConfig {
     layoutHook         = smartBorders myLayout,
     manageHook         = myManageHook,
     startupHook        = myStartupHook,
-    clickJustFocuses   = False
+    clickJustFocuses   = False,
+    handleEventHook    = handleEventHook defaultConfig <+> docksEventHook
 }
 
 promptConfig = defaultXPConfig
