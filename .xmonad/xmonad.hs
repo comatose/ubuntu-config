@@ -386,15 +386,19 @@ main = do
   _ <- spawnPipe "xfce4-volumed"
   -- _ <- spawnPipe "emacs --daemon"
   xmonad $ defaults {
-      logHook = dynamicLogWithPP $ xmobarPP {
+      manageHook         = manageDocks <+> manageHook defaultConfig
+      , layoutHook         = avoidStruts  $ layoutHook defaultConfig
+      -- this must be in this order, docksEventHook must be last
+      , handleEventHook    = handleEventHook defaultConfig <+> docksEventHook
+      , logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xbar
             -- ppOutput = \s -> hPutStrLn xbar s >> hPutStrLn xbar2 s
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
           , ppLayout = const ""
           , ppSep = "   "}
-      , manageHook = manageDocks <+> myManageHook
-      , startupHook = setWMName "LG3D"
+      -- , manageHook = manageDocks <+> myManageHook
+      -- , startupHook = setWMName "LG3D"
   }
 
 

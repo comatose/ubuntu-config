@@ -8,9 +8,9 @@ Config {
     font = "xft:NanumGothicCoding:size=11:antialias=true"
     bgColor = "#000000",
     fgColor = "#ffffff",
-    position = Static { xpos = 0, ypos = 0, width = 1500, height = 25 },
+    position = Static { xpos = 0, ypos = 0, width = 1820, height = 25 },
 --    position = Static { xpos = 1920, ypos = 0, width = 1800, height = 16 },
-    -- lowerOnStart = True,
+    lowerOnStart = False,
     overrideRedirect = False,
     commands = [
         Run Weather "RKSM" ["-t","<station>: <tempC>C <skyCondition>","-L","64","-H","77","-n","#CEFFAC","-h","#FFB6B0","-l","#96CBFE"] 36000,
