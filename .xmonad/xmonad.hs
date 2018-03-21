@@ -383,6 +383,7 @@ main = do
   _ <- spawnPipe "unclutter -idle 5"
   -- _ <- spawnPipe "gnome-settings-daemon"
   _ <- spawnPipe "xrdb ~/.Xresources"
+  _ <- spawnPipe "xfce4-volumed"
   -- _ <- spawnPipe "emacs --daemon"
   xmonad $ defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
