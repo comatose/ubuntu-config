@@ -32,8 +32,8 @@ import           XMonad.Util.Run             (spawnPipe)
 -- certain contrib modules.
 --
 -- myTerminal = "xfce4-terminal -e 'byobu new'"
--- myTerminal = "xfce4-terminal"
-myTerminal = "urxvt"
+myTerminal = "xfce4-terminal"
+-- myTerminal = "urxvt"
 
 ------------------------------------------------------------------------
 -- Workspaces
